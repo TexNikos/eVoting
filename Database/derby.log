@@ -1,0 +1,33 @@
+Wed Feb 01 23:05:10 EET 2017 : Apache Derby Network Server - 10.11.1.2 - (1629631) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Wed Feb 01 23:05:34 EET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0159-fb7e-b111-00001d4339c9 
+on database directory C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database\evotingDB with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
+Loaded from file:/C:/Program%20Files/Java/jdk1.8.0_66/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_66-b18
+user.dir=C:\Program Files\Java\jdk1.8.0_66\db
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed Feb 01 23:05:35 EET 2017:
+Shutting down instance a816c00e-0159-fb7e-b111-00001d4339c9 on database directory C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database\evotingDB with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
+Wed Feb 01 23:05:35 EET 2017 Thread[DRDAConnThread_3,5,main] (DATABASE = evotingDB), (DRDAID = {2}), Database 'evotingDB' shutdown.
+----------------------------------------------------------------
+Wed Feb 01 23:06:02 EET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a65c80ac-0159-fb7e-b111-00001d4339c9 
+on database directory C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database\evotingDB with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
+Loaded from file:/C:/Program%20Files/Java/jdk1.8.0_66/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_66-b18
+user.dir=C:\Program Files\Java\jdk1.8.0_66\db
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed Feb 01 23:13:52 EET 2017: Shutting down Derby engine
