@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
  *
  * @author Nikos
  */
-public class DBOperator {
+public class DBManager {
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
