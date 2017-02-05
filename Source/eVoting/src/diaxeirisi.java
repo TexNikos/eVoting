@@ -27,32 +27,32 @@ public class diaxeirisi extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel_Diaxeirisi_Titlos = new javax.swing.JLabel();
+        jLabel_Periphery = new javax.swing.JLabel();
+        jLabel_PParties = new javax.swing.JLabel();
+        jComboBox_Periphery = new javax.swing.JComboBox<>();
+        jComboBox_PParties = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel1.setText("Διαχείρηση Υποψηφίων");
+        jLabel_Diaxeirisi_Titlos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_Diaxeirisi_Titlos.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel_Diaxeirisi_Titlos.setText("Διαχείρηση Υποψηφίων");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Εκλογική Περιφέρεια:");
+        jLabel_Periphery.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel_Periphery.setText("Εκλογική Περιφέρεια:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Κόμμα:");
+        jLabel_PParties.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel_PParties.setText("Κόμμα:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Α΄ ΑΘΗΝΩΝ", "Β΄ ΑΘΗΝΩΝ", "ΝΟΜΟΥ ΑΤΤΙΚΗΣ", "Α΄ ΠΕΙΡΑΙΩΣ", "Β΄ ΠΕΙΡΑΙΩΣ", "ΝΟΜΟΥ ΑΙΤΩΛΟΑΚΑΡΝΑΝΙΑΣ", "ΝΟΜΟΥ ΑΡΓΟΛΙΔΟΣ", "ΝΟΜΟΥ ΑΡΚΑΔΙΑΣ", "ΝΟΜΟΥ ΑΡΤΗΣ", "ΝΟΜΟΥ ΑΧΑΪΑΣ", "ΝΟΜΟΥ ΒΟΙΩΤΙΑΣ", "ΝΟΜΟΥ ΓΡΕΒΕΝΩΝ", "ΝΟΜΟΥ ΔΡΑΜΑΣ", "ΝΟΜΟΥ ΔΩΔΕΚΑΝΗΣΟΥ", "ΝΟΜΟΥ ΕΒΡΟΥ", "ΝΟΜΟΥ ΕΥΒΟΙΑΣ", "ΝΟΜΟΥ ΕΥΡΥΤΑΝΙΑΣ", "ΝΟΜΟΥ ΖΑΚΥΝΘΟΥ", "ΝΟΜΟΥ ΗΛΕΙΑΣ", "ΝΟΜΟΥ ΗΜΑΘΙΑΣ", "ΝΟΜΟΥ ΗΡΑΚΛΕΙΟΥ", "ΝΟΜΟΥ ΘΕΣΠΡΩΤΙΑΣ", "Α΄ ΘΕΣΣΑΛΟΝΙΚΗΣ", "Β΄ ΘΕΣΣΑΛΟΝΙΚΗΣ", "ΝΟΜΟΥ ΙΩΑΝΝΙΝΩΝ", "ΝΟΜΟΥ ΚΑΒΑΛΑΣ", "ΝΟΜΟΥ ΚΑΡΔΙΤΣΗΣ", "ΝΟΜΟΥ ΚΑΣΤΟΡΙΑΣ", "ΝΟΜΟΥ ΚΕΡΚΥΡΑΣ", "ΝΟΜΟΥ ΚΕΦΑΛΛΗΝΙΑΣ", "ΝΟΜΟΥ ΚΙΛΚΙΣ", "ΝΟΜΟΥ ΚΟΖΑΝΗΣ ", "ΝΟΜΟΥ ΚΟΡΙΝΘΙΑΣ ", "ΝΟΜΟΥ ΚΥΚΛΑΔΩΝ ", "ΝΟΜΟΥ ΛΑΚΩΝΙΑΣ", "ΝΟΜΟΥ ΛΑΡΙΣΗΣ ", "ΝΟΜΟΥ ΛΑΣΙΘΙΟΥ ", "ΝΟΜΟΥ ΛΕΣΒΟΥ", "ΝΟΜΟΥ ΛΕΥΚΑΔΟΣ ", "ΝΟΜΟΥ ΜΑΓΝΗΣΙΑΣ ", "ΝΟΜΟΥ  ΜΕΣΣΗΝΙΑΣ", "ΝΟΜΟΥ ΞΑΝΘΗΣ ", "ΝΟΜΟΥ ΠΕΛΛΗΣ", "ΝΟΜΟΥ ΠΙΕΡΙΑΣ", "ΝΟΜΟΥ ΠΡΕΒΕΖΗΣ ", "ΝΟΜΟΥ ΡΕΘΥΜΝΗΣ ", "ΝΟΜΟΥ ΡΟΔΟΠΗΣ", "ΝΟΜΟΥ ΣΑΜΟΥ", "ΝΟΜΟΥ ΣΕΡΡΩΝ ", "ΝΟΜΟΥ ΤΡΙΚΑΛΩΝ", "ΝΟΜΟΥ ΦΘΙΩΤΙΔΟΣ ", "ΝΟΜΟΥ ΦΛΩΡΙΝΗΣ ", "ΝΟΜΟΥ ΦΩΚΙΔΟΣ", "ΝΟΜΟΥ ΧΑΛΚΙΔΙΚΗΣ ", "ΝΟΜΟΥ ΧΑΝΙΩΝ", "ΝΟΜΟΥ ΧΙΟΥ", " " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_Periphery.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Α΄ ΑΘΗΝΩΝ", "Β΄ ΑΘΗΝΩΝ", "ΝΟΜΟΥ ΑΤΤΙΚΗΣ", "Α΄ ΠΕΙΡΑΙΩΣ", "Β΄ ΠΕΙΡΑΙΩΣ", "ΝΟΜΟΥ ΑΙΤΩΛΟΑΚΑΡΝΑΝΙΑΣ", "ΝΟΜΟΥ ΑΡΓΟΛΙΔΟΣ", "ΝΟΜΟΥ ΑΡΚΑΔΙΑΣ", "ΝΟΜΟΥ ΑΡΤΗΣ", "ΝΟΜΟΥ ΑΧΑΪΑΣ", "ΝΟΜΟΥ ΒΟΙΩΤΙΑΣ", "ΝΟΜΟΥ ΓΡΕΒΕΝΩΝ", "ΝΟΜΟΥ ΔΡΑΜΑΣ", "ΝΟΜΟΥ ΔΩΔΕΚΑΝΗΣΟΥ", "ΝΟΜΟΥ ΕΒΡΟΥ", "ΝΟΜΟΥ ΕΥΒΟΙΑΣ", "ΝΟΜΟΥ ΕΥΡΥΤΑΝΙΑΣ", "ΝΟΜΟΥ ΖΑΚΥΝΘΟΥ", "ΝΟΜΟΥ ΗΛΕΙΑΣ", "ΝΟΜΟΥ ΗΜΑΘΙΑΣ", "ΝΟΜΟΥ ΗΡΑΚΛΕΙΟΥ", "ΝΟΜΟΥ ΘΕΣΠΡΩΤΙΑΣ", "Α΄ ΘΕΣΣΑΛΟΝΙΚΗΣ", "Β΄ ΘΕΣΣΑΛΟΝΙΚΗΣ", "ΝΟΜΟΥ ΙΩΑΝΝΙΝΩΝ", "ΝΟΜΟΥ ΚΑΒΑΛΑΣ", "ΝΟΜΟΥ ΚΑΡΔΙΤΣΗΣ", "ΝΟΜΟΥ ΚΑΣΤΟΡΙΑΣ", "ΝΟΜΟΥ ΚΕΡΚΥΡΑΣ", "ΝΟΜΟΥ ΚΕΦΑΛΛΗΝΙΑΣ", "ΝΟΜΟΥ ΚΙΛΚΙΣ", "ΝΟΜΟΥ ΚΟΖΑΝΗΣ ", "ΝΟΜΟΥ ΚΟΡΙΝΘΙΑΣ ", "ΝΟΜΟΥ ΚΥΚΛΑΔΩΝ ", "ΝΟΜΟΥ ΛΑΚΩΝΙΑΣ", "ΝΟΜΟΥ ΛΑΡΙΣΗΣ ", "ΝΟΜΟΥ ΛΑΣΙΘΙΟΥ ", "ΝΟΜΟΥ ΛΕΣΒΟΥ", "ΝΟΜΟΥ ΛΕΥΚΑΔΟΣ ", "ΝΟΜΟΥ ΜΑΓΝΗΣΙΑΣ ", "ΝΟΜΟΥ  ΜΕΣΣΗΝΙΑΣ", "ΝΟΜΟΥ ΞΑΝΘΗΣ ", "ΝΟΜΟΥ ΠΕΛΛΗΣ", "ΝΟΜΟΥ ΠΙΕΡΙΑΣ", "ΝΟΜΟΥ ΠΡΕΒΕΖΗΣ ", "ΝΟΜΟΥ ΡΕΘΥΜΝΗΣ ", "ΝΟΜΟΥ ΡΟΔΟΠΗΣ", "ΝΟΜΟΥ ΣΑΜΟΥ", "ΝΟΜΟΥ ΣΕΡΡΩΝ ", "ΝΟΜΟΥ ΤΡΙΚΑΛΩΝ", "ΝΟΜΟΥ ΦΘΙΩΤΙΔΟΣ ", "ΝΟΜΟΥ ΦΛΩΡΙΝΗΣ ", "ΝΟΜΟΥ ΦΩΚΙΔΟΣ", "ΝΟΜΟΥ ΧΑΛΚΙΔΙΚΗΣ ", "ΝΟΜΟΥ ΧΑΝΙΩΝ", "ΝΟΜΟΥ ΧΙΟΥ", " " }));
+        jComboBox_Periphery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBox_PeripheryActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ΜΑΥΡΟΙ", "ΑΣΠΡΟΙ", "ΚΟΚΚΙΝΟΙ", "ΓΑΛΑΖΙΟΙ", "ΠΡΑΣΙΝΟΙ" }));
+        jComboBox_PParties.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ΜΑΥΡΟΙ", "ΑΣΠΡΟΙ", "ΚΟΚΚΙΝΟΙ", "ΓΑΛΑΖΙΟΙ", "ΠΡΑΣΙΝΟΙ" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -61,31 +61,31 @@ public class diaxeirisi extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel_Periphery)
+                    .addComponent(jLabel_PParties))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_Periphery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_PParties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_Diaxeirisi_Titlos, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(137, 137, 137))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_Diaxeirisi_Titlos, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_Periphery)
+                    .addComponent(jComboBox_Periphery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jComboBox_PParties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_PParties))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
 
@@ -109,10 +109,10 @@ public class diaxeirisi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBox_PeripheryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_PeripheryActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBox_PeripheryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,11 +150,11 @@ public class diaxeirisi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JComboBox<String> jComboBox_PParties;
+    private javax.swing.JComboBox<String> jComboBox_Periphery;
+    private javax.swing.JLabel jLabel_Diaxeirisi_Titlos;
+    private javax.swing.JLabel jLabel_PParties;
+    private javax.swing.JLabel jLabel_Periphery;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

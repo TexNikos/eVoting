@@ -27,48 +27,48 @@ public class NewJFrametest extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel_icon = new javax.swing.JLabel();
+        jText_eEvoting_Titlos = new javax.swing.JTextField();
+        jButton_Diaxeirisi_ypopsifiwn = new javax.swing.JButton();
+        jButton_Prosomoiwtis = new javax.swing.JButton();
+        jButton_Exit = new javax.swing.JButton();
+        jLabel_Epilogi = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\3h ergasia pli24\\ekloges-ellada-2.jpg")); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel_icon.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\3h ergasia pli24\\ekloges-ellada-2.jpg")); // NOI18N
+        jLabel_icon.setText("jLabel1");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(51, 102, 255));
-        jTextField1.setText("Hellenic eEvoting System");
+        jText_eEvoting_Titlos.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jText_eEvoting_Titlos.setForeground(new java.awt.Color(51, 102, 255));
+        jText_eEvoting_Titlos.setText("Hellenic eEvoting System");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("1. Διαχείριση υποψηφίων");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Diaxeirisi_ypopsifiwn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton_Diaxeirisi_ypopsifiwn.setText("1. Διαχείριση υποψηφίων");
+        jButton_Diaxeirisi_ypopsifiwn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_Diaxeirisi_ypopsifiwnActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("2. Προσομοιωτής εκλογικής διαδικασίας");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Prosomoiwtis.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton_Prosomoiwtis.setText("2. Προσομοιωτής εκλογικής διαδικασίας");
+        jButton_Prosomoiwtis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton_ProsomoiwtisActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("3. Έξοδος");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Exit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton_Exit.setText("3. Έξοδος");
+        jButton_Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_ExitActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Παρακαλώ επιλέξτε:");
+        jLabel_Epilogi.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_Epilogi.setText("Παρακαλώ επιλέξτε:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,41 +76,41 @@ public class NewJFrametest extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(98, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(135, 135, 135))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(270, 270, 270)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jText_eEvoting_Titlos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(321, 321, 321)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel2)))
+                            .addComponent(jButton_Diaxeirisi_ypopsifiwn)
+                            .addComponent(jLabel_Epilogi)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(270, 270, 270)
-                        .addComponent(jButton2))
+                        .addComponent(jButton_Prosomoiwtis))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(371, 371, 371)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton_Exit)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jText_eEvoting_Titlos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(jLabel_Epilogi)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jButton_Diaxeirisi_ypopsifiwn)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(jButton_Prosomoiwtis)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(jButton_Exit)
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
@@ -134,19 +134,19 @@ public class NewJFrametest extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton_ProsomoiwtisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProsomoiwtisActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton_ProsomoiwtisActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_Diaxeirisi_ypopsifiwnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
        this.setVisible(false);
        diaxeirisi d = new diaxeirisi();
        d.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
     System.exit(0);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton_ExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,12 +184,12 @@ public class NewJFrametest extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton_Diaxeirisi_ypopsifiwn;
+    private javax.swing.JButton jButton_Exit;
+    private javax.swing.JButton jButton_Prosomoiwtis;
+    private javax.swing.JLabel jLabel_Epilogi;
+    private javax.swing.JLabel jLabel_icon;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jText_eEvoting_Titlos;
     // End of variables declaration//GEN-END:variables
 }
