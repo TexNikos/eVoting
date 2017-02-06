@@ -3,17 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package gui;
+
+import db.DBManager;
 
 /**
  *
  * @author Ηλίας
  */
-public class NewJFrametest extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame
+{
 
     /**
      * Creates new form NewJFrametest
      */
-    public NewJFrametest() {
+    public MainWindow()
+    {
         initComponents();
     }
 
@@ -24,51 +29,57 @@ public class NewJFrametest extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel_icon = new javax.swing.JLabel();
-        jText_eEvoting_Titlos = new javax.swing.JTextField();
         jButton_Diaxeirisi_ypopsifiwn = new javax.swing.JButton();
         jButton_Prosomoiwtis = new javax.swing.JButton();
         jButton_Exit = new javax.swing.JButton();
         jLabel_Epilogi = new javax.swing.JLabel();
+        jLabel_MainTitle = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel_icon.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Desktop\\3h ergasia pli24\\ekloges-ellada-2.jpg")); // NOI18N
         jLabel_icon.setText("jLabel1");
-
-        jText_eEvoting_Titlos.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jText_eEvoting_Titlos.setForeground(new java.awt.Color(51, 102, 255));
-        jText_eEvoting_Titlos.setText("Hellenic eEvoting System");
 
         jButton_Diaxeirisi_ypopsifiwn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_Diaxeirisi_ypopsifiwn.setText("1. Διαχείριση υποψηφίων");
-        jButton_Diaxeirisi_ypopsifiwn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton_Diaxeirisi_ypopsifiwn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton_Diaxeirisi_ypopsifiwnActionPerformed(evt);
             }
         });
 
         jButton_Prosomoiwtis.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_Prosomoiwtis.setText("2. Προσομοιωτής εκλογικής διαδικασίας");
-        jButton_Prosomoiwtis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton_Prosomoiwtis.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton_ProsomoiwtisActionPerformed(evt);
             }
         });
 
         jButton_Exit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_Exit.setText("3. Έξοδος");
-        jButton_Exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton_Exit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton_ExitActionPerformed(evt);
             }
         });
 
         jLabel_Epilogi.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel_Epilogi.setText("Παρακαλώ επιλέξτε:");
+
+        jLabel_MainTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel_MainTitle.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel_MainTitle.setText("Hellenic eEvoting System");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,9 +92,6 @@ public class NewJFrametest extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addComponent(jText_eEvoting_Titlos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(321, 321, 321)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton_Diaxeirisi_ypopsifiwn)
@@ -93,14 +101,17 @@ public class NewJFrametest extends javax.swing.JFrame {
                         .addComponent(jButton_Prosomoiwtis))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(371, 371, 371)
-                        .addComponent(jButton_Exit)))
+                        .addComponent(jButton_Exit))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(287, 287, 287)
+                        .addComponent(jLabel_MainTitle)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jText_eEvoting_Titlos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
+                .addComponent(jLabel_MainTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -128,7 +139,7 @@ public class NewJFrametest extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,57 +150,22 @@ public class NewJFrametest extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ProsomoiwtisActionPerformed
 
     private void jButton_Diaxeirisi_ypopsifiwnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
-       this.setVisible(false);
-       diaxeirisi d = new diaxeirisi();
-       d.setVisible(true);
+        diaxeirisi d = new diaxeirisi();
+        d.setVisible(true);
     }//GEN-LAST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
 
     private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
-    System.exit(0);
+        DBManager.destroy();
+        dispose();
     }//GEN-LAST:event_jButton_ExitActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrametest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrametest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrametest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrametest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewJFrametest().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Diaxeirisi_ypopsifiwn;
     private javax.swing.JButton jButton_Exit;
     private javax.swing.JButton jButton_Prosomoiwtis;
     private javax.swing.JLabel jLabel_Epilogi;
+    private javax.swing.JLabel jLabel_MainTitle;
     private javax.swing.JLabel jLabel_icon;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jText_eEvoting_Titlos;
     // End of variables declaration//GEN-END:variables
 }

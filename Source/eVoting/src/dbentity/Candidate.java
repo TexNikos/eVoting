@@ -32,12 +32,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "TBL_CANDIDATE")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Candidate.findAll", query = "SELECT c FROM Candidate c")
-    , @NamedQuery(name = "Candidate.findByPkCandidateId", query = "SELECT c FROM Candidate c WHERE c.pkCandidateId = :pkCandidateId")
-    , @NamedQuery(name = "Candidate.findByFldSurname", query = "SELECT c FROM Candidate c WHERE c.fldSurname = :fldSurname")
-    , @NamedQuery(name = "Candidate.findByFldName", query = "SELECT c FROM Candidate c WHERE c.fldName = :fldName")})
-public class Candidate implements Serializable {
+@NamedQueries(
+        {
+            @NamedQuery(name = "Candidate.findAll", query = "SELECT c FROM Candidate c")
+            , @NamedQuery(name = "Candidate.findByPkCandidateId", query = "SELECT c FROM Candidate c WHERE c.pkCandidateId = :pkCandidateId")
+            , @NamedQuery(name = "Candidate.findByFldSurname", query = "SELECT c FROM Candidate c WHERE c.fldSurname = :fldSurname")
+            , @NamedQuery(name = "Candidate.findByFldName", query = "SELECT c FROM Candidate c WHERE c.fldName = :fldName")
+            , @NamedQuery(name = "Candidate.findByFkElectoralPeriphery", query = "SELECT c FROM Candidate c WHERE c.fkElectoralPeripheryId = :fkElectoralPeripheryId")
+            ,@NamedQuery(name = "Candidate.findByFkPoliticalPartyId", query = "SELECT c FROM Candidate c WHERE c.fkPoliticalPartyId = :fkPoliticalPartyId")
+            ,@NamedQuery(name = "Candidate.findByElectPerAndPolParty", query = "SELECT c FROM Candidate c WHERE c.fkElectoralPeripheryId = :fkElectoralPeripheryId AND c.fkPoliticalPartyId = :fkPoliticalPartyId")
+        })
+public class Candidate implements Serializable
+{
 
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
@@ -63,109 +69,131 @@ public class Candidate implements Serializable {
     @OneToMany(mappedBy = "fkCandidateId")
     private Collection<Vote> voteCollection;
 
-    public Candidate() {
+    public Candidate()
+    {
     }
 
-    public Candidate(Long pkCandidateId) {
+    public Candidate(Long pkCandidateId)
+    {
         this.pkCandidateId = pkCandidateId;
     }
 
-    public Candidate(Long pkCandidateId, String fldSurname, String fldName) {
+    public Candidate(Long pkCandidateId, String fldSurname, String fldName)
+    {
         this.pkCandidateId = pkCandidateId;
         this.fldSurname = fldSurname;
         this.fldName = fldName;
     }
 
-    public Long getPkCandidateId() {
+    public Long getPkCandidateId()
+    {
         return pkCandidateId;
     }
 
-    public void setPkCandidateId(Long pkCandidateId) {
+    public void setPkCandidateId(Long pkCandidateId)
+    {
         Long oldPkCandidateId = this.pkCandidateId;
         this.pkCandidateId = pkCandidateId;
         changeSupport.firePropertyChange("pkCandidateId", oldPkCandidateId, pkCandidateId);
     }
 
-    public String getFldSurname() {
+    public String getFldSurname()
+    {
         return fldSurname;
     }
 
-    public void setFldSurname(String fldSurname) {
+    public void setFldSurname(String fldSurname)
+    {
         String oldFldSurname = this.fldSurname;
         this.fldSurname = fldSurname;
         changeSupport.firePropertyChange("fldSurname", oldFldSurname, fldSurname);
     }
 
-    public String getFldName() {
+    public String getFldName()
+    {
         return fldName;
     }
 
-    public void setFldName(String fldName) {
+    public void setFldName(String fldName)
+    {
         String oldFldName = this.fldName;
         this.fldName = fldName;
         changeSupport.firePropertyChange("fldName", oldFldName, fldName);
     }
 
-    public ElectoralPeriphery getFkElectoralPeripheryId() {
+    public ElectoralPeriphery getFkElectoralPeripheryId()
+    {
         return fkElectoralPeripheryId;
     }
 
-    public void setFkElectoralPeripheryId(ElectoralPeriphery fkElectoralPeripheryId) {
+    public void setFkElectoralPeripheryId(ElectoralPeriphery fkElectoralPeripheryId)
+    {
         ElectoralPeriphery oldFkElectoralPeripheryId = this.fkElectoralPeripheryId;
         this.fkElectoralPeripheryId = fkElectoralPeripheryId;
         changeSupport.firePropertyChange("fkElectoralPeripheryId", oldFkElectoralPeripheryId, fkElectoralPeripheryId);
     }
 
-    public PoliticalParty getFkPoliticalPartyId() {
+    public PoliticalParty getFkPoliticalPartyId()
+    {
         return fkPoliticalPartyId;
     }
 
-    public void setFkPoliticalPartyId(PoliticalParty fkPoliticalPartyId) {
+    public void setFkPoliticalPartyId(PoliticalParty fkPoliticalPartyId)
+    {
         PoliticalParty oldFkPoliticalPartyId = this.fkPoliticalPartyId;
         this.fkPoliticalPartyId = fkPoliticalPartyId;
         changeSupport.firePropertyChange("fkPoliticalPartyId", oldFkPoliticalPartyId, fkPoliticalPartyId);
     }
 
     @XmlTransient
-    public Collection<Vote> getVoteCollection() {
+    public Collection<Vote> getVoteCollection()
+    {
         return voteCollection;
     }
 
-    public void setVoteCollection(Collection<Vote> voteCollection) {
+    public void setVoteCollection(Collection<Vote> voteCollection)
+    {
         this.voteCollection = voteCollection;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (pkCandidateId != null ? pkCandidateId.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Candidate)) {
+        if (!(object instanceof Candidate))
+        {
             return false;
         }
         Candidate other = (Candidate) object;
-        if ((this.pkCandidateId == null && other.pkCandidateId != null) || (this.pkCandidateId != null && !this.pkCandidateId.equals(other.pkCandidateId))) {
+        if ((this.pkCandidateId == null && other.pkCandidateId != null) || (this.pkCandidateId != null && !this.pkCandidateId.equals(other.pkCandidateId)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "dbentity.Candidate[ pkCandidateId=" + pkCandidateId + " ]";
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
+    public void addPropertyChangeListener(PropertyChangeListener listener)
+    {
         changeSupport.addPropertyChangeListener(listener);
     }
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
+    public void removePropertyChangeListener(PropertyChangeListener listener)
+    {
         changeSupport.removePropertyChangeListener(listener);
     }
-    
+
 }
