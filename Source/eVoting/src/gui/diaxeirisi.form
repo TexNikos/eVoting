@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
+                          <Component id="jLabel_Diaxeirisi_Titlos" min="-2" pref="227" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel_PParties" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel_Periphery" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jComboBox_Periphery" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox_PParties" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="288" max="32767" attributes="0"/>
+              </Group>
+              <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel_Diaxeirisi_Titlos" min="-2" pref="74" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel_Periphery" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBox_Periphery" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel_PParties" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBox_PParties" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="384" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel_Diaxeirisi_Titlos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x394;&#x3b9;&#x3b1;&#x3c7;&#x3b5;&#x3af;&#x3c1;&#x3b7;&#x3c3;&#x3b7; &#x3a5;&#x3c0;&#x3bf;&#x3c8;&#x3b7;&#x3c6;&#x3af;&#x3c9;&#x3bd;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel_Periphery">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x395;&#x3ba;&#x3bb;&#x3bf;&#x3b3;&#x3b9;&#x3ba;&#x3ae; &#x3a0;&#x3b5;&#x3c1;&#x3b9;&#x3c6;&#x3ad;&#x3c1;&#x3b5;&#x3b9;&#x3b1;:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel_PParties">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x39a;&#x3cc;&#x3bc;&#x3bc;&#x3b1;:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox_Periphery">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="57">
+                <StringItem index="0" value="(&#x395;&#x3c0;&#x3b9;&#x3bb;&#x3ad;&#x3be;&#x3c4;&#x3b5; &#x3b5;&#x3ba;&#x3bb;&#x3bf;&#x3b3;&#x3b9;&#x3ba;&#x3ae; &#x3c0;&#x3b5;&#x3c1;&#x3b9;&#x3c6;&#x3ad;&#x3c1;&#x3b5;&#x3b9;&#x3b1;)"/>
+                <StringItem index="1" value="&#x391;&#x384;&#x391;&#x398;&#x397;&#x39d;&#x3a9;&#x39d;"/>
+                <StringItem index="2" value="&#x392;&#x384; &#x391;&#x398;&#x397;&#x39d;&#x3a9;&#x39d;"/>
+                <StringItem index="3" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x391;&#x3a4;&#x3a4;&#x399;&#x39a;&#x397;&#x3a3;"/>
+                <StringItem index="4" value="&#x391;&#x384; &#x3a0;&#x395;&#x399;&#x3a1;&#x391;&#x399;&#x3a9;&#x3a3;"/>
+                <StringItem index="5" value="&#x392;&#x384; &#x3a0;&#x395;&#x399;&#x3a1;&#x391;&#x399;&#x3a9;&#x3a3;"/>
+                <StringItem index="6" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x391;&#x399;&#x3a4;&#x3a9;&#x39b;&#x39f;&#x391;&#x39a;&#x391;&#x3a1;&#x39d;&#x391;&#x39d;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="7" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x391;&#x3a1;&#x393;&#x39f;&#x39b;&#x399;&#x394;&#x39f;&#x3a3;"/>
+                <StringItem index="8" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x391;&#x3a1;&#x39a;&#x391;&#x394;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="9" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x391;&#x3a1;&#x3a4;&#x397;&#x3a3;"/>
+                <StringItem index="10" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x391;&#x3a7;&#x391;&#x3aa;&#x391;&#x3a3;"/>
+                <StringItem index="11" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x392;&#x39f;&#x399;&#x3a9;&#x3a4;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="12" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x393;&#x3a1;&#x395;&#x392;&#x395;&#x39d;&#x3a9;&#x39d;"/>
+                <StringItem index="13" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x394;&#x3a1;&#x391;&#x39c;&#x391;&#x3a3;"/>
+                <StringItem index="14" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x394;&#x3a9;&#x394;&#x395;&#x39a;&#x391;&#x39d;&#x397;&#x3a3;&#x39f;&#x3a5;"/>
+                <StringItem index="15" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x395;&#x392;&#x3a1;&#x39f;&#x3a5;"/>
+                <StringItem index="16" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x395;&#x3a5;&#x392;&#x39f;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="17" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x395;&#x3a5;&#x3a1;&#x3a5;&#x3a4;&#x391;&#x39d;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="18" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x396;&#x391;&#x39a;&#x3a5;&#x39d;&#x398;&#x39f;&#x3a5;"/>
+                <StringItem index="19" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x397;&#x39b;&#x395;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="20" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x397;&#x39c;&#x391;&#x398;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="21" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x397;&#x3a1;&#x391;&#x39a;&#x39b;&#x395;&#x399;&#x39f;&#x3a5;"/>
+                <StringItem index="22" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x398;&#x395;&#x3a3;&#x3a0;&#x3a1;&#x3a9;&#x3a4;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="23" value="&#x391;&#x384; &#x398;&#x395;&#x3a3;&#x3a3;&#x391;&#x39b;&#x39f;&#x39d;&#x399;&#x39a;&#x397;&#x3a3;"/>
+                <StringItem index="24" value="&#x392;&#x384; &#x398;&#x395;&#x3a3;&#x3a3;&#x391;&#x39b;&#x39f;&#x39d;&#x399;&#x39a;&#x397;&#x3a3;"/>
+                <StringItem index="25" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x399;&#x3a9;&#x391;&#x39d;&#x39d;&#x399;&#x39d;&#x3a9;&#x39d;"/>
+                <StringItem index="26" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x391;&#x392;&#x391;&#x39b;&#x391;&#x3a3;"/>
+                <StringItem index="27" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x391;&#x3a1;&#x394;&#x399;&#x3a4;&#x3a3;&#x397;&#x3a3;"/>
+                <StringItem index="28" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x391;&#x3a3;&#x3a4;&#x39f;&#x3a1;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="29" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x395;&#x3a1;&#x39a;&#x3a5;&#x3a1;&#x391;&#x3a3;"/>
+                <StringItem index="30" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x395;&#x3a6;&#x391;&#x39b;&#x39b;&#x397;&#x39d;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="31" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x399;&#x39b;&#x39a;&#x399;&#x3a3;"/>
+                <StringItem index="32" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x39f;&#x396;&#x391;&#x39d;&#x397;&#x3a3; "/>
+                <StringItem index="33" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x39f;&#x3a1;&#x399;&#x39d;&#x398;&#x399;&#x391;&#x3a3; "/>
+                <StringItem index="34" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39a;&#x3a5;&#x39a;&#x39b;&#x391;&#x394;&#x3a9;&#x39d; "/>
+                <StringItem index="35" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39b;&#x391;&#x39a;&#x3a9;&#x39d;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="36" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39b;&#x391;&#x3a1;&#x399;&#x3a3;&#x397;&#x3a3; "/>
+                <StringItem index="37" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39b;&#x391;&#x3a3;&#x399;&#x398;&#x399;&#x39f;&#x3a5; "/>
+                <StringItem index="38" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39b;&#x395;&#x3a3;&#x392;&#x39f;&#x3a5;"/>
+                <StringItem index="39" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39b;&#x395;&#x3a5;&#x39a;&#x391;&#x394;&#x39f;&#x3a3; "/>
+                <StringItem index="40" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39c;&#x391;&#x393;&#x39d;&#x397;&#x3a3;&#x399;&#x391;&#x3a3; "/>
+                <StringItem index="41" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5;  &#x39c;&#x395;&#x3a3;&#x3a3;&#x397;&#x39d;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="42" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x39e;&#x391;&#x39d;&#x398;&#x397;&#x3a3; "/>
+                <StringItem index="43" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a0;&#x395;&#x39b;&#x39b;&#x397;&#x3a3;"/>
+                <StringItem index="44" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a0;&#x399;&#x395;&#x3a1;&#x399;&#x391;&#x3a3;"/>
+                <StringItem index="45" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a0;&#x3a1;&#x395;&#x392;&#x395;&#x396;&#x397;&#x3a3; "/>
+                <StringItem index="46" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a1;&#x395;&#x398;&#x3a5;&#x39c;&#x39d;&#x397;&#x3a3; "/>
+                <StringItem index="47" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a1;&#x39f;&#x394;&#x39f;&#x3a0;&#x397;&#x3a3;"/>
+                <StringItem index="48" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a3;&#x391;&#x39c;&#x39f;&#x3a5;"/>
+                <StringItem index="49" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a3;&#x395;&#x3a1;&#x3a1;&#x3a9;&#x39d; "/>
+                <StringItem index="50" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a4;&#x3a1;&#x399;&#x39a;&#x391;&#x39b;&#x3a9;&#x39d;"/>
+                <StringItem index="51" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a6;&#x398;&#x399;&#x3a9;&#x3a4;&#x399;&#x394;&#x39f;&#x3a3; "/>
+                <StringItem index="52" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a6;&#x39b;&#x3a9;&#x3a1;&#x399;&#x39d;&#x397;&#x3a3; "/>
+                <StringItem index="53" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a6;&#x3a9;&#x39a;&#x399;&#x394;&#x39f;&#x3a3;"/>
+                <StringItem index="54" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a7;&#x391;&#x39b;&#x39a;&#x399;&#x394;&#x399;&#x39a;&#x397;&#x3a3; "/>
+                <StringItem index="55" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a7;&#x391;&#x39d;&#x399;&#x3a9;&#x39d;"/>
+                <StringItem index="56" value="&#x39d;&#x39f;&#x39c;&#x39f;&#x3a5; &#x3a7;&#x399;&#x39f;&#x3a5;"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox_PeripheryActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox_PParties">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="6">
+                <StringItem index="0" value="(&#x395;&#x3c0;&#x3b9;&#x3bb;&#x3ad;&#x3be;&#x3c4;&#x3b5; &#x3ba;&#x3cc;&#x3bc;&#x3bc;&#x3b1;)"/>
+                <StringItem index="1" value="&#x393;&#x391;&#x39b;&#x391;&#x396;&#x399;&#x39f;&#x399;"/>
+                <StringItem index="2" value="&#x39a;&#x39f;&#x39a;&#x39a;&#x399;&#x39d;&#x39f;&#x399;"/>
+                <StringItem index="3" value="&#x39b;&#x395;&#x3a5;&#x39a;&#x39f;&#x399;"/>
+                <StringItem index="4" value="&#x39c;&#x391;&#x3a5;&#x3a1;&#x39f;&#x399;"/>
+                <StringItem index="5" value="&#x3a0;&#x3a1;&#x391;&#x3a3;&#x399;&#x39d;&#x39f;&#x399;"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox_PPartiesActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="jTable1">
+              <Properties>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="dtb" type="code"/>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0"/>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
