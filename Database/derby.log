@@ -1,7 +1,7 @@
-Tue Feb 07 01:13:13 EET 2017 : Apache Derby Network Server - 10.11.1.2 - (1629631) started and ready to accept connections on port 1527
+Tue Feb 07 23:48:26 EET 2017 : Apache Derby Network Server - 10.11.1.2 - (1629631) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Tue Feb 07 01:13:17 EET 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-015a-15b3-b9d5-00001d4339c9 
+Tue Feb 07 23:48:38 EET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-015a-1a8c-7823-00001d4339c9 
 on database directory C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database\evotingDB with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
 Loaded from file:/C:/Program%20Files/Java/jdk1.8.0_66/db/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -13,8 +13,8 @@ os.version=10.0
 derby.system.home=C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Tue Feb 07 02:30:01 EET 2017: Shutting down Derby engine
+Tue Feb 07 23:52:06 EET 2017: Shutting down Derby engine
 ----------------------------------------------------------------
-Tue Feb 07 02:30:01 EET 2017:
-Shutting down instance a816c00e-015a-15b3-b9d5-00001d4339c9 on database directory C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database\evotingDB with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
+Tue Feb 07 23:52:06 EET 2017:
+Shutting down instance a816c00e-015a-1a8c-7823-00001d4339c9 on database directory C:\Users\Nikos\Documents\≈¡–\–À« 24\Ergasia 3\eVoting\Database\evotingDB with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
 ----------------------------------------------------------------
