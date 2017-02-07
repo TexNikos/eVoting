@@ -6,6 +6,7 @@
 package gui;
 
 import db.DBManager;
+import gui.utilities.UtilFuncs;
 
 /**
  *
@@ -150,8 +151,8 @@ public class MainWindow extends javax.swing.JFrame
     }//GEN-LAST:event_jButton_ProsomoiwtisActionPerformed
 
     private void jButton_Diaxeirisi_ypopsifiwnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
-        diaxeirisi d = new diaxeirisi();
-        d.setVisible(true);
+        Diaxeirisi diax = new Diaxeirisi(UtilFuncs.getDialogOwnerFrame(), true);
+        diax.setVisible(true);
     }//GEN-LAST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
 
     private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
