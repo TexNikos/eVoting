@@ -7,6 +7,7 @@ package gui;
 
 import db.DBManager;
 import gui.utilities.UtilFuncs;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -151,8 +152,14 @@ public class MainWindow extends javax.swing.JFrame
     }//GEN-LAST:event_jButton_ProsomoiwtisActionPerformed
 
     private void jButton_Diaxeirisi_ypopsifiwnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
+        try{
         Diaxeirisi diax = new Diaxeirisi(UtilFuncs.getDialogOwnerFrame(), true);
         diax.setVisible(true);
+        }
+        catch(Exception e) {
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Error connecting to the database."
+                    + "\nMake sure the Java DB Server is running and try again.\n\n", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
 
     private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
