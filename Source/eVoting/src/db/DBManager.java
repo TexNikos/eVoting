@@ -13,41 +13,40 @@ import javax.persistence.Persistence;
  *
  * @author Nikos
  */
-public class DBOperator {
+public class DBManager {
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
     private static boolean active = false;
 
-    public static EntityManager create() {
-        
+    public static void create() {
+
         if (!active) {
-            return create("eVotingPU");
+            create("eVotingPU");
         }
 
-        return em;
-        
     }
 
-    public static EntityManager create(String pUnitName) {
-        
+    public static void create(String pUnitName) {
+
         if (!active) {
             emf = Persistence.createEntityManagerFactory(pUnitName);
             em = emf.createEntityManager();
             active = true;
         }
-
-        return em;
-        
     }
 
-    public static void Deactivate() {
-        
-        active = false;
-        em.close();
-        emf.close();
-        em = null;
+    public static EntityManager em() {
+        return em;
+    }
 
+    public static void destroy() {
+        if (active) {
+            active = false;
+            em.close();
+            emf.close();
+            em = null;
+        }
     }
 
 }
