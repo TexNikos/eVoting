@@ -8,20 +8,21 @@ package gui;
 import db.DBManager;
 import gui.utilities.UtilFuncs;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
  * @author Ηλίας
  */
-public class MainWindow extends javax.swing.JFrame
-{
+public class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrametest
      */
-    public MainWindow()
-    {
+    public MainWindow() {
         initComponents();
+        setLocationByPlatform(true);
+        setVisible(true);
     }
 
     /**
@@ -31,8 +32,7 @@ public class MainWindow extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel_icon = new javax.swing.JLabel();
@@ -48,30 +48,24 @@ public class MainWindow extends javax.swing.JFrame
 
         jButton_Diaxeirisi_ypopsifiwn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_Diaxeirisi_ypopsifiwn.setText("1. Διαχείριση υποψηφίων");
-        jButton_Diaxeirisi_ypopsifiwn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_Diaxeirisi_ypopsifiwn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Diaxeirisi_ypopsifiwnActionPerformed(evt);
             }
         });
 
         jButton_Prosomoiwtis.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_Prosomoiwtis.setText("2. Προσομοιωτής εκλογικής διαδικασίας");
-        jButton_Prosomoiwtis.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_Prosomoiwtis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ProsomoiwtisActionPerformed(evt);
             }
         });
 
         jButton_Exit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_Exit.setText("3. Έξοδος");
-        jButton_Exit.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton_Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ExitActionPerformed(evt);
             }
         });
@@ -88,7 +82,7 @@ public class MainWindow extends javax.swing.JFrame
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
+                .addContainerGap(166, Short.MAX_VALUE)
                 .addComponent(jLabel_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(135, 135, 135))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -124,24 +118,18 @@ public class MainWindow extends javax.swing.JFrame
                 .addComponent(jButton_Prosomoiwtis)
                 .addGap(18, 18, 18)
                 .addComponent(jButton_Exit)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -152,11 +140,9 @@ public class MainWindow extends javax.swing.JFrame
     }//GEN-LAST:event_jButton_ProsomoiwtisActionPerformed
 
     private void jButton_Diaxeirisi_ypopsifiwnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed
-        try{
-        Diaxeirisi diax = new Diaxeirisi(UtilFuncs.getDialogOwnerFrame(), true);
-        diax.setVisible(true);
-        }
-        catch(Exception e) {
+        try {
+            new Diaxeirisi(UtilFuncs.getDialogOwnerFrame(), true);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Error connecting to the database."
                     + "\nMake sure the Java DB Server is running and try again.\n\n", "Error", JOptionPane.ERROR_MESSAGE);
         }

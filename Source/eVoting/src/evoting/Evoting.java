@@ -5,6 +5,8 @@
  */
 package evoting;
 
+import gui.MainWindow;
+
 /**
  *
  * @author Nikos
@@ -13,11 +15,31 @@ public class Evoting {
 
     public static void main(String args[]) {
 
-        
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new gui.MainWindow().setVisible(true);
+                /**
+                 * Look and feel code *
+                 */
+                try {
+                    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                        if ("Nimbus".equals(info.getName())) {
+                            javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                            break;
+                        }
+                    }
+                } catch (ClassNotFoundException ex) {
+
+                } catch (InstantiationException ex) {
+
+                } catch (IllegalAccessException ex) {
+
+                } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+
+                }
+                /**
+                 * Look and feel code END *
+                 */
+                new MainWindow();
             }
         });
     }
