@@ -75,7 +75,16 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
+        switch(columnIndex) {
+            case 0:
+                result.get(rowIndex).setFldSurname((String) aValue);
+                break;
+            case 1:
+                result.get(rowIndex).setFldName((String) aValue);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -110,20 +119,26 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
             default:
                 return null;
         }
-
     }
-
-    public void addRow() {
-        Candidate emptyRow = new Candidate();
-        emptyRow.setFldSurname("What");
-        emptyRow.setFldName("DaFaq");
-        result.add(emptyRow);
+    
+    public void removeValueAt(int index) {
+        DBManager.em().getTransaction().begin();
+        DBManager.em().remove(result.get(index));
+        DBManager.em().getTransaction().commit();
+        result.remove(index);
         fireTableDataChanged();
     }
 
-    public static void internalEditCandi(int index) {
-        result.get(index).setFkElectoralPeripheryId(getPeripheryByName(Diaxeirisi.getSelectedPeriphery()));
-        result.get(index).setFkPoliticalPartyId(getPoliticalPartyByName(Diaxeirisi.getSelectedParty()));
+    public void addRow() {
+        Candidate c = new Candidate();
+        c.setFkElectoralPeripheryId(getPeripheryByName(Diaxeirisi.getSelectedPeriphery()));
+        c.setFkPoliticalPartyId(getPoliticalPartyByName(Diaxeirisi.getSelectedParty()));
+        result.add(c);
+        fireTableDataChanged();
+    }
+    
+    public static void saveCandi(int index) {
+        DBManager.em().persist(result.get(index));
     }
 
     private static ElectoralPeriphery getPeripheryByName(String peripheryName) {

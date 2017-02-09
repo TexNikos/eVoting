@@ -100,6 +100,11 @@ public class Diaxeirisi extends javax.swing.JDialog {
         jButton_DeleteCandi.setMaximumSize(new java.awt.Dimension(91, 23));
         jButton_DeleteCandi.setMinimumSize(new java.awt.Dimension(91, 23));
         jButton_DeleteCandi.setPreferredSize(new java.awt.Dimension(91, 23));
+        jButton_DeleteCandi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DeleteCandiActionPerformed(evt);
+            }
+        });
 
         jButton_Exit.setText("Διαγραφή Όλων");
         jButton_Exit.setMaximumSize(new java.awt.Dimension(91, 23));
@@ -209,12 +214,14 @@ public class Diaxeirisi extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_ExitActionPerformed
 
     private void jButton_SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SaveChangesActionPerformed
-//        String lastName = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-//        String firstName = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
         DBManager.em().getTransaction().begin();
-        DiaxeirisiTableModel.internalEditCandi(jTable1.getSelectedRow());
+        DiaxeirisiTableModel.saveCandi(jTable1.getSelectedRow());
         DBManager.em().getTransaction().commit();
     }//GEN-LAST:event_jButton_SaveChangesActionPerformed
+
+    private void jButton_DeleteCandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteCandiActionPerformed
+        ((DiaxeirisiTableModel) jTable1.getModel()).removeValueAt(jTable1.getSelectedRow());
+    }//GEN-LAST:event_jButton_DeleteCandiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -242,6 +249,5 @@ public class Diaxeirisi extends javax.swing.JDialog {
     public static String getSelectedParty() {
         return (String) jComboBox_PParties.getSelectedItem();
     }
-    DefaultTableModel
 
 }
