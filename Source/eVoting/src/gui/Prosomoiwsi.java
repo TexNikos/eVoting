@@ -245,7 +245,7 @@ public class Prosomoiwsi extends javax.swing.JDialog {
 
                 //Wait until all threads are finished
                 while (!executor.isTerminated()) {
-
+                    
                 }
                 pw.dispose();
                 JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Η προσομοίωση ολοκληρώθηκε επιτυχώς", "Ολοκληρώθηκε", JOptionPane.INFORMATION_MESSAGE);
