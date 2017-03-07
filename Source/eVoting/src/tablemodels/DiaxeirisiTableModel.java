@@ -78,10 +78,10 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                result.get(rowIndex).setFldSurname((String) aValue);
+                result.get(rowIndex).setFldSurname(((String) aValue).toUpperCase());
                 break;
             case 1:
-                result.get(rowIndex).setFldName((String) aValue);
+                result.get(rowIndex).setFldName(((String) aValue).toUpperCase());
                 break;
             default:
                 break;
@@ -157,13 +157,13 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
         }
     }
 
-    private static ElectoralPeriphery getPeripheryByName(String peripheryName) {
+    public static ElectoralPeriphery getPeripheryByName(String peripheryName) {
         TypedQuery<ElectoralPeriphery> q = DBManager.em().createNamedQuery("ElectoralPeriphery.findByFldName", ElectoralPeriphery.class);
         q.setParameter("fldName", peripheryName);
         return q.getSingleResult();
     }
 
-    private static PoliticalParty getPoliticalPartyByName(String party) {
+    public static PoliticalParty getPoliticalPartyByName(String party) {
         TypedQuery<PoliticalParty> q = DBManager.em().createNamedQuery("PoliticalParty.findByFldTitle", PoliticalParty.class);
         q.setParameter("fldTitle", party);
         return q.getSingleResult();
