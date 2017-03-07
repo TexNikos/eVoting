@@ -43,6 +43,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel_MainTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("eVoting");
 
         jLabel_icon.setText("jLabel1");
 
@@ -136,7 +137,7 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_ProsomoiwtisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProsomoiwtisActionPerformed
-        // TODO add your handling code here:
+        new Prosomoiwsi(UtilFuncs.getDialogOwnerFrame(), true);
     }//GEN-LAST:event_jButton_ProsomoiwtisActionPerformed
 
     private void jButton_Diaxeirisi_ypopsifiwnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Diaxeirisi_ypopsifiwnActionPerformed

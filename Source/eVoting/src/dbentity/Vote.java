@@ -140,5 +140,5 @@ public class Vote implements Serializable {
     public String toString() {
         return "dbentity.Vote[ pkVoteId=" + pkVoteId + " ]";
     }
-    
+
 }
