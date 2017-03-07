@@ -11,6 +11,7 @@
       <property name="javax.persistence.jdbc.user" value="admin1"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="admin1"/>
+      <property name="eclipselink.allow-zero-id" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>

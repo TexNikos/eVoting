@@ -12,6 +12,7 @@ import dbentity.Candidate;
 import dbentity.ElectoralPeriphery;
 import dbentity.PoliticalParty;
 import gui.Diaxeirisi;
+import java.util.Iterator;
 import javax.persistence.TypedQuery;
 
 /**
@@ -75,7 +76,7 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        switch(columnIndex) {
+        switch (columnIndex) {
             case 0:
                 result.get(rowIndex).setFldSurname((String) aValue);
                 break;
@@ -120,12 +121,25 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
                 return null;
         }
     }
-    
+
     public void removeValueAt(int index) {
         DBManager.em().getTransaction().begin();
         DBManager.em().remove(result.get(index));
         DBManager.em().getTransaction().commit();
         result.remove(index);
+        fireTableDataChanged();
+    }
+
+    public void removeAllDisplayed() {
+
+        Iterator<Candidate> iter = result.iterator();
+
+        DBManager.em().getTransaction().begin();
+        for (Candidate c : result) {
+            DBManager.em().remove(c);
+        }
+        DBManager.em().getTransaction().commit();
+        result.removeAll(result);
         fireTableDataChanged();
     }
 
@@ -136,9 +150,11 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
         result.add(c);
         fireTableDataChanged();
     }
-    
+
     public static void saveCandi(int index) {
-        DBManager.em().persist(result.get(index));
+        if (!result.isEmpty()) {
+            DBManager.em().persist(result.get(index));
+        }
     }
 
     private static ElectoralPeriphery getPeripheryByName(String peripheryName) {
