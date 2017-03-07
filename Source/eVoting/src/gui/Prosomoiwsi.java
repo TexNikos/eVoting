@@ -8,16 +8,11 @@ package gui;
 import db.DBManager;
 import dbentity.ElectoralPeriphery;
 import gui.utilities.UtilFuncs;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 import threadedmethods.CastVote;
 
 /**
@@ -182,7 +177,7 @@ public class Prosomoiwsi extends javax.swing.JDialog {
     private void jButton_BeginEmuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BeginEmuActionPerformed
 
         ProgressWindow pw = new ProgressWindow(UtilFuncs.getDialogOwnerFrame(), true);
-        
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -193,9 +188,9 @@ public class Prosomoiwsi extends javax.swing.JDialog {
                 String inputErrorTitle = "Σφάλμα εισόδου";
 
                 try {
-                    voteChance = Integer.parseInt(jTextField_VoteChance.getText()) / 100f;
-                    blankChance = Integer.parseInt(jTextField_BlankChance.getText()) / 100f;
-                    invalidChance = Integer.parseInt(jTextField_InvalidChance.getText()) / 100f;
+                    voteChance = Float.parseFloat(jTextField_VoteChance.getText()) / 100f;
+                    blankChance = Float.parseFloat(jTextField_BlankChance.getText()) / 100f;
+                    invalidChance = Float.parseFloat(jTextField_InvalidChance.getText()) / 100f;
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
                     return;
@@ -221,6 +216,12 @@ public class Prosomoiwsi extends javax.swing.JDialog {
                     return;
                 }
 
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        pw.setVisible(true);
+                    }
+                });
+
                 TypedQuery<ElectoralPeriphery> tQuery = DBManager.em().createNamedQuery("ElectoralPeriphery.findAll", ElectoralPeriphery.class);
                 List<ElectoralPeriphery> results = tQuery.getResultList();
 
@@ -235,7 +236,7 @@ public class Prosomoiwsi extends javax.swing.JDialog {
                 for (ElectoralPeriphery ep : results) {
                     if (!ep.getCandidateCollection().isEmpty()) {
                         Runnable worker = new CastVote(ep, voteChance, blankChance, invalidChance);
-                        
+
                         executor.execute(worker);
                     }
                 }
@@ -244,15 +245,14 @@ public class Prosomoiwsi extends javax.swing.JDialog {
 
                 //Wait until all threads are finished
                 while (!executor.isTerminated()) {
-                   
+
                 }
                 pw.dispose();
                 JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Η προσομοίωση ολοκληρώθηκε επιτυχώς", "Ολοκληρώθηκε", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }).start();
-        
-        pw.setVisible(true);
+
 
     }//GEN-LAST:event_jButton_BeginEmuActionPerformed
 

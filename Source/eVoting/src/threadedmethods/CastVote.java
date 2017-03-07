@@ -5,7 +5,6 @@
  */
 package threadedmethods;
 
-import db.DBManager;
 import dbentity.Candidate;
 import dbentity.ElectoralPeriphery;
 import dbentity.Vote;
@@ -15,7 +14,6 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.apache.derby.database.Database;
 
 /**
  *
@@ -52,7 +50,7 @@ public class CastVote implements Runnable {
             if (rand.nextFloat() < voteChance) {
 
                 if (rand.nextFloat() < blankChance) {
-                    Vote v = new Vote(0l);
+                    Vote v = new Vote();
                     v.setFldIsBlank(true);
                     v.setFldIsInvalid(false);
                     v.setFkElectoralPeripheryId(ep);
@@ -63,7 +61,7 @@ public class CastVote implements Runnable {
                         j = 0;
                     }
                 } else if (rand.nextFloat() < invalidChance) {
-                    Vote v = new Vote(0l);
+                    Vote v = new Vote();
                     v.setFldIsInvalid(true);
                     v.setFldIsBlank(false);
                     v.setFkElectoralPeripheryId(ep);
@@ -74,7 +72,7 @@ public class CastVote implements Runnable {
                         j = 0;
                     }
                 } else {
-                    Vote v = new Vote(0l);
+                    Vote v = new Vote();
                     v.setFldIsInvalid(false);
                     v.setFldIsBlank(false);
                     Candidate votedCandi = candies.get(rand.nextInt(candies.size()));

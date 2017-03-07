@@ -6,12 +6,8 @@
 package gui;
 
 import db.DBManager;
-import dbentity.Candidate;
-import dbentity.ElectoralPeriphery;
 import gui.utilities.UtilFuncs;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 import tablemodels.DiaxeirisiTableModel;
 
 /**

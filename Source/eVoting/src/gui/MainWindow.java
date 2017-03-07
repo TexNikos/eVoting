@@ -8,7 +8,6 @@ package gui;
 import db.DBManager;
 import gui.utilities.UtilFuncs;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 /**
  *
