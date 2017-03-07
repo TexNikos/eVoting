@@ -6,11 +6,8 @@
 package gui;
 
 import db.DBManager;
-import dbentity.Candidate;
-import dbentity.ElectoralPeriphery;
 import gui.utilities.UtilFuncs;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 import tablemodels.DiaxeirisiTableModel;
 
 /**
@@ -25,7 +22,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
     public Diaxeirisi(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setLocationByPlatform(true);
         setVisible(true);
     }
@@ -49,11 +46,12 @@ public class Diaxeirisi extends javax.swing.JDialog {
         jButton_AddCandi = new javax.swing.JButton();
         jButton_SaveChanges = new javax.swing.JButton();
         jButton_DeleteCandi = new javax.swing.JButton();
-        jButton_Exit = new javax.swing.JButton();
+        jButton_DeleteAll = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel_Diaxeirisi_Titlos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Διαχείρηση Υποψηφίων");
 
         jLabel_Periphery.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel_Periphery.setText("Εκλογική Περιφέρεια:");
@@ -106,13 +104,13 @@ public class Diaxeirisi extends javax.swing.JDialog {
             }
         });
 
-        jButton_Exit.setText("Διαγραφή Όλων");
-        jButton_Exit.setMaximumSize(new java.awt.Dimension(91, 23));
-        jButton_Exit.setMinimumSize(new java.awt.Dimension(91, 23));
-        jButton_Exit.setPreferredSize(new java.awt.Dimension(91, 23));
-        jButton_Exit.addActionListener(new java.awt.event.ActionListener() {
+        jButton_DeleteAll.setText("Διαγραφή Όλων");
+        jButton_DeleteAll.setMaximumSize(new java.awt.Dimension(91, 23));
+        jButton_DeleteAll.setMinimumSize(new java.awt.Dimension(91, 23));
+        jButton_DeleteAll.setPreferredSize(new java.awt.Dimension(91, 23));
+        jButton_DeleteAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ExitActionPerformed(evt);
+                jButton_DeleteAllActionPerformed(evt);
             }
         });
 
@@ -138,7 +136,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_DeleteCandi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_Exit, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                        .addComponent(jButton_DeleteAll, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -161,7 +159,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
                         .addComponent(jButton_AddCandi, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton_SaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton_DeleteCandi, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton_Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton_DeleteAll, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
@@ -206,12 +204,23 @@ public class Diaxeirisi extends javax.swing.JDialog {
 
     private void jButton_AddCandiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_AddCandiActionPerformed
     {//GEN-HEADEREND:event_jButton_AddCandiActionPerformed
-        ((DiaxeirisiTableModel) jTable1.getModel()).addRow();
+        if (getSelectedParty().equals("(Επιλέξτε κόμμα)") || getSelectedPeriphery().equals("(Επιλέξτε εκλογική περιφέρεια)")) {
+            String oPaneMsg = "Επιλέξτε εκλογική περιφέρεια και κόμμα για να εισάγετε υποψήφιο";
+            String oPaneTitle = "Σφάλμα!";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.ERROR_MESSAGE);
+        } else {
+            ((DiaxeirisiTableModel) jTable1.getModel()).addRow();
+        }
     }//GEN-LAST:event_jButton_AddCandiActionPerformed
 
-    private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton_ExitActionPerformed
+    private void jButton_DeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteAllActionPerformed
+        String oPaneMsg = "Είστε σίγουροι πως θέλετε να διαγράψετε όλους τους εμφανιζόμενους υποψηφίους;";
+        String oPaneTitle = "Διαγραφή όλων;";
+
+        if (JOptionPane.showConfirmDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.OK_OPTION) {
+            ((DiaxeirisiTableModel) jTable1.getModel()).removeAllDisplayed();
+        }
+    }//GEN-LAST:event_jButton_DeleteAllActionPerformed
 
     private void jButton_SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SaveChangesActionPerformed
         DBManager.em().getTransaction().begin();
@@ -220,14 +229,19 @@ public class Diaxeirisi extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_SaveChangesActionPerformed
 
     private void jButton_DeleteCandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteCandiActionPerformed
-        ((DiaxeirisiTableModel) jTable1.getModel()).removeValueAt(jTable1.getSelectedRow());
+        String oPaneMsg = "Είστε σίγουροι πως θέλετε να διαγράψετε τον επιλεγμένο υποψήφιο;";
+        String oPaneTitle = "Διαγραφή;";
+
+        if (JOptionPane.showConfirmDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.OK_OPTION) {
+            ((DiaxeirisiTableModel) jTable1.getModel()).removeValueAt(jTable1.getSelectedRow());
+        }
     }//GEN-LAST:event_jButton_DeleteCandiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_AddCandi;
+    private javax.swing.JButton jButton_DeleteAll;
     private javax.swing.JButton jButton_DeleteCandi;
-    private javax.swing.JButton jButton_Exit;
     private javax.swing.JButton jButton_SaveChanges;
     private static javax.swing.JComboBox<String> jComboBox_PParties;
     private static javax.swing.JComboBox<String> jComboBox_Periphery;
@@ -241,11 +255,11 @@ public class Diaxeirisi extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private DiaxeirisiTableModel dtb = new DiaxeirisiTableModel();
-    
+
     public static String getSelectedPeriphery() {
         return (String) jComboBox_Periphery.getSelectedItem();
     }
-    
+
     public static String getSelectedParty() {
         return (String) jComboBox_PParties.getSelectedItem();
     }
