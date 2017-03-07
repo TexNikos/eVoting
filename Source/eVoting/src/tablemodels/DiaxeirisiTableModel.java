@@ -5,15 +5,15 @@
  */
 package tablemodels;
 
-import java.util.List;
-import javax.swing.table.AbstractTableModel;
 import db.DBManager;
 import dbentity.Candidate;
 import dbentity.ElectoralPeriphery;
 import dbentity.PoliticalParty;
 import gui.Diaxeirisi;
 import java.util.Iterator;
+import java.util.List;
 import javax.persistence.TypedQuery;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
