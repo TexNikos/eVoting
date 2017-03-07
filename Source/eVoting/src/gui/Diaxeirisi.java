@@ -6,9 +6,14 @@
 package gui;
 
 import db.DBManager;
+import dbentity.ElectoralPeriphery;
+import dbentity.PoliticalParty;
 import gui.utilities.UtilFuncs;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import tablemodels.DiaxeirisiTableModel;
+import static tablemodels.DiaxeirisiTableModel.getPeripheryByName;
+import static tablemodels.DiaxeirisiTableModel.getPoliticalPartyByName;
 
 /**
  *
@@ -204,10 +209,28 @@ public class Diaxeirisi extends javax.swing.JDialog {
 
     private void jButton_AddCandiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_AddCandiActionPerformed
     {//GEN-HEADEREND:event_jButton_AddCandiActionPerformed
+
+        ElectoralPeriphery selectedPer = null;
+        PoliticalParty selectedPar = null;
+
+        if (getSelectedParty().equals("(Επιλέξτε κόμμα)") || getSelectedPeriphery().equals("(Επιλέξτε εκλογική περιφέρεια)")) {
+
+        } else {
+            selectedPer = getPeripheryByName(getSelectedPeriphery());
+            selectedPar = getPoliticalPartyByName(getSelectedParty());
+        }
+
+        Query q = DBManager.em().createNativeQuery("SELECT COUNT(*) FROM TBL_CANDIDATE WHERE FK_POLITICAL_PARTY_ID = " + selectedPar.getPkPartyId().toString() + "AND FK_ELECTORAL_PERIPHERY_ID = " + selectedPer.getPkElectoralPeripheryId().toString());
+        int politicalPartyCount = Integer.parseInt(q.getSingleResult().toString());
+        
         if (getSelectedParty().equals("(Επιλέξτε κόμμα)") || getSelectedPeriphery().equals("(Επιλέξτε εκλογική περιφέρεια)")) {
             String oPaneMsg = "Επιλέξτε εκλογική περιφέρεια και κόμμα για να εισάγετε υποψήφιο";
             String oPaneTitle = "Σφάλμα!";
             JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.ERROR_MESSAGE);
+        } else if (politicalPartyCount == selectedPer.getFldSeatsCount()) {
+            String oPaneMsg1 = "Δεν υπάρχει δυνατότητα εισαγωγής άλλου υποψηφίου.";
+            String oPaneTitle1 = "Σφάλμα!";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg1, oPaneTitle1, JOptionPane.ERROR_MESSAGE);
         } else {
             ((DiaxeirisiTableModel) jTable1.getModel()).addRow();
         }
