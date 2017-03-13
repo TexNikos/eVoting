@@ -17,7 +17,7 @@ public class ProgressWindow extends javax.swing.JDialog {
     public ProgressWindow(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setLocationByPlatform(true);
     }
 

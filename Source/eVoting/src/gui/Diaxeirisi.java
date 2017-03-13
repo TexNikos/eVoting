@@ -9,11 +9,11 @@ import db.DBManager;
 import dbentity.ElectoralPeriphery;
 import dbentity.PoliticalParty;
 import gui.utilities.UtilFuncs;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import tablemodels.DiaxeirisiTableModel;
-import static tablemodels.DiaxeirisiTableModel.getPeripheryByName;
-import static tablemodels.DiaxeirisiTableModel.getPoliticalPartyByName;
 
 /**
  *
@@ -30,6 +30,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
 
         setLocationByPlatform(true);
         setVisible(true);
+
     }
 
     /**
@@ -57,6 +58,12 @@ public class Diaxeirisi extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Διαχείρηση Υποψηφίων");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel_Periphery.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel_Periphery.setText("Εκλογική Περιφέρεια:");
@@ -79,7 +86,13 @@ public class Diaxeirisi extends javax.swing.JDialog {
         });
 
         jTable1.setAutoCreateRowSorter(true);
+        jTable1.setBorder(new javax.swing.border.MatteBorder(null));
         jTable1.setModel(dtb);
+        jTable1.setCellSelectionEnabled(true);
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTable1.setSelectionBackground(new java.awt.Color(57, 144, 216));
+        jTable1.setShowHorizontalLines(true);
+        jTable1.setShowVerticalLines(true);
         jScrollPane1.setViewportView(jTable1);
 
         jButton_AddCandi.setText("Δημιουργία");
@@ -212,22 +225,31 @@ public class Diaxeirisi extends javax.swing.JDialog {
 
         ElectoralPeriphery selectedPer = null;
         PoliticalParty selectedPar = null;
+        Query q;
+        int politicalPartyCount = 0;
+        int selectedPerSeatsCount = 0;
 
         if (getSelectedParty().equals("(Επιλέξτε κόμμα)") || getSelectedPeriphery().equals("(Επιλέξτε εκλογική περιφέρεια)")) {
 
         } else {
-            selectedPer = getPeripheryByName(getSelectedPeriphery());
-            selectedPar = getPoliticalPartyByName(getSelectedParty());
+            selectedPer = UtilFuncs.getPeripheryByName(getSelectedPeriphery());
+            selectedPar = UtilFuncs.getPoliticalPartyByName(getSelectedParty());
         }
 
-        Query q = DBManager.em().createNativeQuery("SELECT COUNT(*) FROM TBL_CANDIDATE WHERE FK_POLITICAL_PARTY_ID = " + selectedPar.getPkPartyId().toString() + "AND FK_ELECTORAL_PERIPHERY_ID = " + selectedPer.getPkElectoralPeripheryId().toString());
-        int politicalPartyCount = Integer.parseInt(q.getSingleResult().toString());
-        
+        if (selectedPer != null && selectedPar != null) {
+            
+            q = DBManager.em().createNativeQuery("SELECT COUNT(*) FROM TBL_CANDIDATE WHERE FK_POLITICAL_PARTY_ID = " + selectedPar.getPkPartyId().toString() + 
+                    "AND FK_ELECTORAL_PERIPHERY_ID = " + selectedPer.getPkElectoralPeripheryId().toString());
+            politicalPartyCount = Integer.parseInt(q.getSingleResult().toString());
+
+            selectedPerSeatsCount = selectedPer.getFldSeatsCount();
+        }
+
         if (getSelectedParty().equals("(Επιλέξτε κόμμα)") || getSelectedPeriphery().equals("(Επιλέξτε εκλογική περιφέρεια)")) {
             String oPaneMsg = "Επιλέξτε εκλογική περιφέρεια και κόμμα για να εισάγετε υποψήφιο";
             String oPaneTitle = "Σφάλμα!";
             JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.ERROR_MESSAGE);
-        } else if (politicalPartyCount == selectedPer.getFldSeatsCount()) {
+        } else if (politicalPartyCount == selectedPerSeatsCount) {
             String oPaneMsg1 = "Δεν υπάρχει δυνατότητα εισαγωγής άλλου υποψηφίου.";
             String oPaneTitle1 = "Σφάλμα!";
             JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg1, oPaneTitle1, JOptionPane.ERROR_MESSAGE);
@@ -246,20 +268,63 @@ public class Diaxeirisi extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_DeleteAllActionPerformed
 
     private void jButton_SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SaveChangesActionPerformed
-        DBManager.em().getTransaction().begin();
-        DiaxeirisiTableModel.saveCandi(jTable1.getSelectedRow());
-        DBManager.em().getTransaction().commit();
+        List<Integer> errorIndex = new ArrayList<>();
+        List<Integer> savedEdits = new ArrayList<>();
+        if (!DiaxeirisiTableModel.unsavedEdits.isEmpty()) {
+            try {
+                DBManager.em().getTransaction().begin();
+            } catch (Exception e) {
+
+            }
+            for (int i : DiaxeirisiTableModel.unsavedEdits) {
+                if (!DiaxeirisiTableModel.saveCandi(i)) {
+                    errorIndex.add(i);
+                } else {
+                    savedEdits.add(i);
+                }
+            }
+
+            if (!savedEdits.isEmpty()) {
+                DBManager.em().getTransaction().commit();
+                try {
+                    DBManager.em().getTransaction().begin();
+                } catch (Exception e) {
+
+                }
+                DiaxeirisiTableModel.unsavedEdits.removeAll(savedEdits);
+                savedEdits.clear();
+            }
+
+            if (!errorIndex.isEmpty()) {
+                String inputError = "Τα πεδία \"Επώνυμο\" και \"Όνομα\" δεν μπορούν να είναι κενά για καμία εγγραφή\n"
+                        + "Οι κενές εγγραφές δεν αποθηκεύτηκαν";
+                String inputErrorTitle = "Σφάλμα εισόδου";
+                JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
+                errorIndex.clear();
+            }
+        } else {
+            String error = "Δεν υπάρχουν μη αποθηκευμένες αλλαγές.";
+            String errorTitle = "Σφάλμα";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), error, errorTitle, JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (DBManager.em().getTransaction().isActive()) {
+            DBManager.em().getTransaction().commit();
+        }
     }//GEN-LAST:event_jButton_SaveChangesActionPerformed
 
     private void jButton_DeleteCandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteCandiActionPerformed
-        String oPaneMsg = "Είστε σίγουροι πως θέλετε να διαγράψετε τον επιλεγμένο υποψήφιο;";
+        String oPaneMsg = "Είστε σίγουροι πως θέλετε να διαγράψετε τους επιλεγμένους υποψηφίους;";
         String oPaneTitle = "Διαγραφή;";
 
         if (JOptionPane.showConfirmDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.OK_OPTION) {
-            ((DiaxeirisiTableModel) jTable1.getModel()).removeValueAt(jTable1.getSelectedRow());
+            ((DiaxeirisiTableModel) jTable1.getModel()).removeValueAt(jTable1.getSelectedRows());
         }
     }//GEN-LAST:event_jButton_DeleteCandiActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DBManager.destroy();
+    }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_AddCandi;
@@ -277,7 +342,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    private DiaxeirisiTableModel dtb = new DiaxeirisiTableModel();
+    private final DiaxeirisiTableModel dtb = new DiaxeirisiTableModel();
 
     public static String getSelectedPeriphery() {
         return (String) jComboBox_Periphery.getSelectedItem();
