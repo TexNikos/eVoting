@@ -12,12 +12,14 @@ import gui.utilities.UtilFuncs;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
@@ -35,7 +37,7 @@ public class DisplayStats extends javax.swing.JDialog {
     public DisplayStats(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         pie = makePie(getSelectedPeriphery());
     }
 
@@ -45,7 +47,7 @@ public class DisplayStats extends javax.swing.JDialog {
     private JFreeChart makePie(String periphery) {
         JFreeChart chart = ChartFactory.createPieChart3D(periphery, dataset);
         chart.setTitle(periphery);
-        StandardPieSectionLabelGenerator labelMaker = new StandardPieSectionLabelGenerator("{0}: {1} ({2})", new DecimalFormat("#0"), new DecimalFormat("0%"));
+        StandardPieSectionLabelGenerator labelMaker = new StandardPieSectionLabelGenerator("{0}: {1} ({2})", new DecimalFormat("#0"), new DecimalFormat("0.00%"));
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setLabelGenerator(labelMaker);
         JPanel chartPanel = new ChartPanel(chart);
@@ -219,6 +221,13 @@ public class DisplayStats extends javax.swing.JDialog {
         tQuery = DBManager.em().createNamedQuery("PoliticalParty.findAll", PoliticalParty.class);
         allParties = tQuery.getResultList();
         initializePieData();
+        if (DatasetUtilities.isEmptyOrNull(dataset)) {
+            String oPaneMsg1 = "Δεν υπάρχουν καταχωρημένοι ψήφοι.\n"
+                    + "Τρέξτε την προσομοίωση και δοκιμάστε ξανά.";
+            String oPaneTitle1 = "Σφάλμα!";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg1, oPaneTitle1, JOptionPane.ERROR_MESSAGE);
+            dispose();
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private DefaultPieDataset dataset = new DefaultPieDataset();
