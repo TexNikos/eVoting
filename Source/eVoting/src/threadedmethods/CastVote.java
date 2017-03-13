@@ -42,10 +42,10 @@ public class CastVote implements Runnable {
         Random rand = new Random(LocalTime.now().toNanoOfDay());
         List<Candidate> candies = (List<Candidate>) ep.getCandidateCollection();
         int j = 0;
-        
+
         em.getTransaction().begin();
 
-        for (int i = 0; i < (ep.getFldRegisteredCitizensCount() / 1000); i++) {
+        for (int i = 0; i < (ep.getFldRegisteredCitizensCount()); i++) {
             j++;
             if (rand.nextFloat() < voteChance) {
 

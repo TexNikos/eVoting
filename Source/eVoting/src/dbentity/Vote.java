@@ -30,7 +30,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Vote.findAll", query = "SELECT v FROM Vote v")
     , @NamedQuery(name = "Vote.findByPkVoteId", query = "SELECT v FROM Vote v WHERE v.pkVoteId = :pkVoteId")
     , @NamedQuery(name = "Vote.findByFldIsInvalid", query = "SELECT v FROM Vote v WHERE v.fldIsInvalid = :fldIsInvalid")
-    , @NamedQuery(name = "Vote.findByFldIsBlank", query = "SELECT v FROM Vote v WHERE v.fldIsBlank = :fldIsBlank")})
+    , @NamedQuery(name = "Vote.findByFldIsBlank", query = "SELECT v FROM Vote v WHERE v.fldIsBlank = :fldIsBlank")
+    , @NamedQuery(name = "Vote.findValidByPerPar", query = "SELECT v FROM Vote v WHERE v.fkElectoralPeripheryId = :fkElectoralPeripheryId "
+            + "AND v.fkPoliticalPartyId = :fkPoliticalPartyId "
+            + "AND v.fldIsBlank = False "
+            + "AND v.fldIsInvalid = False")
+    , @NamedQuery(name = "Vote.findByPerBlank", query = "SELECT v FROM Vote v WHERE v.fkElectoralPeripheryId = :fkElectoralPeripheryId AND v.fldIsBlank = True")
+    ,@NamedQuery(name = "Vote.findByPerInvalid", query = "SELECT v FROM Vote v WHERE v.fkElectoralPeripheryId = :fkElectoralPeripheryId AND v.fldIsInvalid = True")
+    , @NamedQuery(name = "Vote.findValidByPar", query = "SELECT v FROM Vote v WHERE v.fkPoliticalPartyId = :fkPoliticalPartyId AND v.fldIsBlank = False AND v.fldIsInvalid = False")
+    , @NamedQuery(name = "Vote.findByParBlank", query = "SELECT v FROM Vote v WHERE v.fkPoliticalPartyId = :fkPoliticalPartyId AND v.fldIsBlank = True")
+    ,@NamedQuery(name = "Vote.findByParInvalid", query = "SELECT v FROM Vote v WHERE v.fkPoliticalPartyId = :fkPoliticalPartyId AND v.fldIsInvalid = True")})
+
 public class Vote implements Serializable {
 
     private static final long serialVersionUID = 1L;

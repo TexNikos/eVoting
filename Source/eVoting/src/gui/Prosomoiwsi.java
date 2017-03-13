@@ -147,6 +147,11 @@ public class Prosomoiwsi extends javax.swing.JDialog {
         jPanel3.add(filler6);
 
         jButton_DisplayStats.setText("Εμφάνιση Στατιστικών");
+        jButton_DisplayStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DisplayStatsActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton_DisplayStats);
         jPanel3.add(filler9);
         jPanel3.add(filler7);
@@ -172,6 +177,7 @@ public class Prosomoiwsi extends javax.swing.JDialog {
 
     private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
         dispose();
+        DBManager.destroy();
     }//GEN-LAST:event_jButton_ExitActionPerformed
 
     private void jButton_BeginEmuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BeginEmuActionPerformed
@@ -207,7 +213,11 @@ public class Prosomoiwsi extends javax.swing.JDialog {
 
                 try {
                     DBManager.create();
-                    DBManager.em().getTransaction().begin();
+                    try {
+                        DBManager.em().getTransaction().begin();
+                    } catch (Exception e) {
+                        
+                    }
                     DBManager.em().createQuery("DELETE FROM Vote").executeUpdate();
                     DBManager.em().getTransaction().commit();
                 } catch (Exception e) {
@@ -245,7 +255,7 @@ public class Prosomoiwsi extends javax.swing.JDialog {
 
                 //Wait until all threads are finished
                 while (!executor.isTerminated()) {
-                    
+
                 }
                 pw.dispose();
                 JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Η προσομοίωση ολοκληρώθηκε επιτυχώς", "Ολοκληρώθηκε", JOptionPane.INFORMATION_MESSAGE);
@@ -255,6 +265,16 @@ public class Prosomoiwsi extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_jButton_BeginEmuActionPerformed
+
+    private void jButton_DisplayStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DisplayStatsActionPerformed
+        try {
+            new DisplayStats(UtilFuncs.getDialogOwnerFrame(), true).setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Error connecting to the database."
+                    + "\nMake sure the Java DB Server is running and try again.\n\n", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton_DisplayStatsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -10,10 +10,15 @@ import dbentity.Candidate;
 import dbentity.ElectoralPeriphery;
 import dbentity.PoliticalParty;
 import gui.Diaxeirisi;
-import java.util.Iterator;
+import gui.utilities.UtilFuncs;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -21,10 +26,16 @@ import javax.swing.table.AbstractTableModel;
  */
 public class DiaxeirisiTableModel extends AbstractTableModel {
 
-    private static List<Candidate> result;
+    public static List<Candidate> result;
     private static TypedQuery<Candidate> query;
+    private static final String TEXT_ONLY_REGEX = "!|@|#|\\$|%|\\^|&|\\*|\\(|\\)|`|~|-|_|=|\\+|\\[|\\]|\\{|\\}|;|:|'|\\\"|,|\\.|<|>|/|\\?|\\\\|\\||[0-9]";
+    private static final Pattern TEXT_ONLY_PATTERN = Pattern.compile(TEXT_ONLY_REGEX);
 
-    private String[] columns = {"Επώνυμο", "Όνομα"};
+    private long canId = 0L;
+
+    public static List<Integer> unsavedEdits = new ArrayList<Integer>();
+
+    private final String[] columns = {"Επώνυμο", "Όνομα"};
 
     public DiaxeirisiTableModel() {
         DBManager.create();
@@ -33,6 +44,8 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
     }
 
     public void updateTable(String periphery, String pParty) {
+
+        unsavedEdits.clear();
 
         if (periphery.equals("(Επιλέξτε εκλογική περιφέρεια)") && pParty.equals("(Επιλέξτε κόμμα)")) {
             query = DBManager.em().createNamedQuery("Candidate.findAll", Candidate.class);
@@ -76,15 +89,30 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        String surname = StringUtils.stripAccents(((String) aValue).toUpperCase().trim());
+        String name = StringUtils.stripAccents(((String) aValue).toUpperCase().trim());
+        Matcher m1 = TEXT_ONLY_PATTERN.matcher(surname);
+        Matcher m2 = TEXT_ONLY_PATTERN.matcher(name);
+
+        if (m1.find() || m2.find()) {
+            String inputError = "Τα ονοματεπώνυμα δεν μπορούν να περιέχουν αριθμούς ή σύμβολα";
+            String inputErrorTitle = "Σφάλμα εισόδου";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         switch (columnIndex) {
             case 0:
-                result.get(rowIndex).setFldSurname(((String) aValue).toUpperCase());
+                result.get(rowIndex).setFldSurname(surname);
                 break;
             case 1:
-                result.get(rowIndex).setFldName(((String) aValue).toUpperCase());
+                result.get(rowIndex).setFldName(name);
                 break;
             default:
                 break;
+        }
+        if (!unsavedEdits.contains(rowIndex)) {
+            unsavedEdits.add(rowIndex);
         }
     }
 
@@ -122,51 +150,75 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
         }
     }
 
-    public void removeValueAt(int index) {
-        DBManager.em().getTransaction().begin();
-        DBManager.em().remove(result.get(index));
-        DBManager.em().getTransaction().commit();
-        result.remove(index);
-        fireTableDataChanged();
+    public void removeValueAt(int[] index) {
+        try {
+            DBManager.em().getTransaction().begin();
+        } catch (Exception e) {
+
+        }
+        for (int i : index) {
+            DBManager.em().remove(result.get(i));
+        }
+        try {
+            DBManager.em().getTransaction().commit();
+        } catch (javax.persistence.RollbackException e) {
+            String deleteError = "Κάποιοι από τους επιλεγμένους υποψηφίους, δεν μπορούν να διαγραφούν "
+                    + "γιατί υπάρχουν για αυτούς καταχωρημένοι ψήφοι";
+            String deleteErrorTitle = "Σφάλμα";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), deleteError, deleteErrorTitle, JOptionPane.ERROR_MESSAGE);
+        }
+        updateTable(Diaxeirisi.getSelectedPeriphery(), Diaxeirisi.getSelectedParty());
+
     }
 
     public void removeAllDisplayed() {
 
-        Iterator<Candidate> iter = result.iterator();
+        try {
+            DBManager.em().getTransaction().begin();
+        } catch (Exception e) {
 
-        DBManager.em().getTransaction().begin();
+        }
         for (Candidate c : result) {
             DBManager.em().remove(c);
         }
-        DBManager.em().getTransaction().commit();
-        result.removeAll(result);
+        try {
+            DBManager.em().getTransaction().commit();
+            result.clear();
+        } catch (javax.persistence.RollbackException e) {
+            String deleteError = "Η διαγραφή απέτυχε.\n"
+                    + "Κάποιοι από τους υποψηφίους, δεν μπορούν να διαγραφούν "
+                    + "γιατί υπάρχουν για αυτούς καταχωρημένοι ψήφοι.";
+            String deleteErrorTitle = "Σφάλμα";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), deleteError, deleteErrorTitle, JOptionPane.ERROR_MESSAGE);
+        }
         fireTableDataChanged();
     }
 
     public void addRow() {
         Candidate c = new Candidate();
-        c.setFkElectoralPeripheryId(getPeripheryByName(Diaxeirisi.getSelectedPeriphery()));
-        c.setFkPoliticalPartyId(getPoliticalPartyByName(Diaxeirisi.getSelectedParty()));
+        c.setPkCandidateId(++canId);
+        c.setFkElectoralPeripheryId(UtilFuncs.getPeripheryByName(Diaxeirisi.getSelectedPeriphery()));
+        c.setFkPoliticalPartyId(UtilFuncs.getPoliticalPartyByName(Diaxeirisi.getSelectedParty()));
+        c.setFldSurname("");
+        c.setFldName("");
         result.add(c);
+        unsavedEdits.add(result.indexOf(c));
         fireTableDataChanged();
     }
 
-    public static void saveCandi(int index) {
+    public static boolean saveCandi(int index) {
         if (!result.isEmpty()) {
-            DBManager.em().persist(result.get(index));
+            Candidate c = result.get(index);
+            String surname = c.getFldSurname();
+            String name = c.getFldName();
+            if (surname.isEmpty() || name.isEmpty()) {
+                return false;
+            } else {
+                DBManager.em().persist(c);
+                return true;
+            }
         }
-    }
-
-    public static ElectoralPeriphery getPeripheryByName(String peripheryName) {
-        TypedQuery<ElectoralPeriphery> q = DBManager.em().createNamedQuery("ElectoralPeriphery.findByFldName", ElectoralPeriphery.class);
-        q.setParameter("fldName", peripheryName);
-        return q.getSingleResult();
-    }
-
-    public static PoliticalParty getPoliticalPartyByName(String party) {
-        TypedQuery<PoliticalParty> q = DBManager.em().createNamedQuery("PoliticalParty.findByFldTitle", PoliticalParty.class);
-        q.setParameter("fldTitle", party);
-        return q.getSingleResult();
+        return false;
     }
 
 }
