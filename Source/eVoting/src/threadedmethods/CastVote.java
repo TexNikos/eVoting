@@ -45,11 +45,13 @@ public class CastVote implements Runnable {
 
         em.getTransaction().begin();
 
-        for (int i = 0; i < (ep.getFldRegisteredCitizensCount() / 1000); i++) {
+        for (int i = 0; i < (ep.getFldRegisteredCitizensCount()); i++) {
             j++;
             if (rand.nextFloat() < voteChance) {
-
-                if (rand.nextFloat() < blankChance) {
+                
+                float randFloat = rand.nextFloat();
+                
+                if (randFloat < blankChance) {
                     Vote v = new Vote();
                     v.setFldIsBlank(true);
                     v.setFldIsInvalid(false);
@@ -60,7 +62,7 @@ public class CastVote implements Runnable {
                         em.getTransaction().begin();
                         j = 0;
                     }
-                } else if (rand.nextFloat() < invalidChance) {
+                } else if (randFloat >= blankChance && randFloat < blankChance + invalidChance) {
                     Vote v = new Vote();
                     v.setFldIsInvalid(true);
                     v.setFldIsBlank(false);

@@ -202,11 +202,12 @@ public class Prosomoiwsi extends javax.swing.JDialog {
                     return;
                 }
 
-                boolean voteChanceInRange = (voteChance >= 0 && voteChance <= 100);
-                boolean blankChanceInRange = (blankChance >= 0 && blankChance <= 100);
-                boolean invalidChanceInRange = (invalidChance >= 0 && invalidChance <= 100);
+                boolean voteChanceInRange = (voteChance >= 0f && voteChance <= 1f);
+                boolean blankChanceInRange = (blankChance >= 0f && blankChance <= 1f);
+                boolean invalidChanceInRange = (invalidChance >= 0f && invalidChance <= 1f);
+                boolean blankInvalidSumInRange = blankChance + invalidChance <= 1f;
 
-                if (!(voteChanceInRange && blankChanceInRange && invalidChanceInRange)) {
+                if (!(voteChanceInRange && blankChanceInRange && invalidChanceInRange && blankInvalidSumInRange)) {
                     JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
                     return;
                 }

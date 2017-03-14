@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -30,8 +31,8 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
     private static TypedQuery<Candidate> query;
     private static final String TEXT_ONLY_REGEX = "!|@|#|\\$|%|\\^|&|\\*|\\(|\\)|`|~|-|_|=|\\+|\\[|\\]|\\{|\\}|;|:|'|\\\"|,|\\.|<|>|/|\\?|\\\\|\\||[0-9]";
     private static final Pattern TEXT_ONLY_PATTERN = Pattern.compile(TEXT_ONLY_REGEX);
-
-    private long canId = 0L;
+    private boolean canIdGenerated = false;
+    long canId = 0L;
 
     public static List<Integer> unsavedEdits = new ArrayList<Integer>();
 
@@ -84,7 +85,7 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
             result = query.getResultList();
             fireTableDataChanged();
         }
-
+        canIdGenerated = false;
     }
 
     @Override
@@ -195,6 +196,12 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
     }
 
     public void addRow() {
+        if (!canIdGenerated) {
+            Query q = DBManager.em().createNativeQuery("SELECT MAX(PK_CANDIDATE_ID) FROM TBL_CANDIDATE");
+            canId = Long.parseLong(q.getSingleResult().toString());
+            canIdGenerated = true;
+        }
+
         Candidate c = new Candidate();
         c.setPkCandidateId(++canId);
         c.setFkElectoralPeripheryId(UtilFuncs.getPeripheryByName(Diaxeirisi.getSelectedPeriphery()));
