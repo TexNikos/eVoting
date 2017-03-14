@@ -37,8 +37,11 @@ public class DisplayStats extends javax.swing.JDialog {
     public DisplayStats(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        
         pie = makePie(getSelectedPeriphery());
+        
+        setLocationByPlatform(true);
+        
     }
 
     /**

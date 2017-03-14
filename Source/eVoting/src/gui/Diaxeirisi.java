@@ -27,7 +27,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
     public Diaxeirisi(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        
         setLocationByPlatform(true);
         setVisible(true);
 
@@ -90,9 +90,8 @@ public class Diaxeirisi extends javax.swing.JDialog {
         jTable1.setModel(dtb);
         jTable1.setCellSelectionEnabled(true);
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTable1.setRowSelectionAllowed(true);
         jTable1.setSelectionBackground(new java.awt.Color(57, 144, 216));
-        jTable1.setShowHorizontalLines(true);
-        jTable1.setShowVerticalLines(true);
         jScrollPane1.setViewportView(jTable1);
 
         jButton_AddCandi.setText("Δημιουργία");
@@ -212,12 +211,12 @@ public class Diaxeirisi extends javax.swing.JDialog {
     private void jComboBox_PeripheryActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox_PeripheryActionPerformed
     {//GEN-HEADEREND:event_jComboBox_PeripheryActionPerformed
 
-        dtb.updateTable(jComboBox_Periphery.getSelectedItem().toString(), jComboBox_PParties.getSelectedItem().toString());
+        dtb.updateTable(getSelectedPeriphery(), getSelectedParty());
     }//GEN-LAST:event_jComboBox_PeripheryActionPerformed
 
     private void jComboBox_PPartiesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox_PPartiesActionPerformed
     {//GEN-HEADEREND:event_jComboBox_PPartiesActionPerformed
-        dtb.updateTable(jComboBox_Periphery.getSelectedItem().toString(), jComboBox_PParties.getSelectedItem().toString());
+        dtb.updateTable(getSelectedPeriphery(), getSelectedParty());
     }//GEN-LAST:event_jComboBox_PPartiesActionPerformed
 
     private void jButton_AddCandiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_AddCandiActionPerformed
@@ -311,6 +310,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
         if (DBManager.em().getTransaction().isActive()) {
             DBManager.em().getTransaction().commit();
         }
+        
     }//GEN-LAST:event_jButton_SaveChangesActionPerformed
 
     private void jButton_DeleteCandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteCandiActionPerformed
@@ -318,7 +318,11 @@ public class Diaxeirisi extends javax.swing.JDialog {
         String oPaneTitle = "Διαγραφή;";
 
         if (JOptionPane.showConfirmDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.OK_OPTION) {
-            ((DiaxeirisiTableModel) jTable1.getModel()).removeValueAt(jTable1.getSelectedRows());
+            int[] selectedRows = jTable1.getSelectedRows();
+            for (int i = 0; i < selectedRows.length; i++) {
+                selectedRows[i] = jTable1.getRowSorter().convertRowIndexToModel(i);
+            }
+            ((DiaxeirisiTableModel) jTable1.getModel()).removeValueAt(selectedRows);
         }
     }//GEN-LAST:event_jButton_DeleteCandiActionPerformed
 
