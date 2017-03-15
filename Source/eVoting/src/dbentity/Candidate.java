@@ -34,13 +34,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries(
         {
-            @NamedQuery(name = "Candidate.findAll", query = "SELECT c FROM Candidate c")
-            , @NamedQuery(name = "Candidate.findByPkCandidateId", query = "SELECT c FROM Candidate c WHERE c.pkCandidateId = :pkCandidateId")
-            , @NamedQuery(name = "Candidate.findByFldSurname", query = "SELECT c FROM Candidate c WHERE c.fldSurname = :fldSurname")
-            , @NamedQuery(name = "Candidate.findByFldName", query = "SELECT c FROM Candidate c WHERE c.fldName = :fldName")
-            , @NamedQuery(name = "Candidate.findByFkElectoralPeriphery", query = "SELECT c FROM Candidate c WHERE c.fkElectoralPeripheryId = :fkElectoralPeripheryId")
-            ,@NamedQuery(name = "Candidate.findByFkPoliticalPartyId", query = "SELECT c FROM Candidate c WHERE c.fkPoliticalPartyId = :fkPoliticalPartyId")
-            ,@NamedQuery(name = "Candidate.findByElectPerAndPolParty", query = "SELECT c FROM Candidate c WHERE c.fkElectoralPeripheryId = :fkElectoralPeripheryId AND c.fkPoliticalPartyId = :fkPoliticalPartyId")
+            @NamedQuery(name = "Candidate.findAll", query = "SELECT c FROM Candidate c ORDER BY c.fldSurname")
+            , @NamedQuery(name = "Candidate.findByPkCandidateId", query = "SELECT c FROM Candidate c WHERE c.pkCandidateId = :pkCandidateId ORDER BY c.fldSurname")
+            , @NamedQuery(name = "Candidate.findByFldSurname", query = "SELECT c FROM Candidate c WHERE c.fldSurname = :fldSurname ORDER BY c.fldSurname")
+            , @NamedQuery(name = "Candidate.findByFldName", query = "SELECT c FROM Candidate c WHERE c.fldName = :fldName ORDER BY c.fldSurname")
+            , @NamedQuery(name = "Candidate.findByFkElectoralPeriphery", query = "SELECT c FROM Candidate c WHERE c.fkElectoralPeripheryId = :fkElectoralPeripheryId ORDER BY c.fldSurname")
+            ,@NamedQuery(name = "Candidate.findByFkPoliticalPartyId", query = "SELECT c FROM Candidate c WHERE c.fkPoliticalPartyId = :fkPoliticalPartyId ORDER BY c.fldSurname")
+            ,@NamedQuery(name = "Candidate.findByElectPerAndPolParty", query = "SELECT c FROM Candidate c WHERE c.fkElectoralPeripheryId = :fkElectoralPeripheryId AND c.fkPoliticalPartyId = :fkPoliticalPartyId ORDER BY c.fldSurname")
         })
 public class Candidate implements Serializable
 {

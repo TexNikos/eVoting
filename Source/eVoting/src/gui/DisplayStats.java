@@ -9,6 +9,7 @@ import db.DBManager;
 import dbentity.PoliticalParty;
 import dbentity.Vote;
 import gui.utilities.UtilFuncs;
+import java.awt.Font;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.persistence.TypedQuery;
@@ -18,6 +19,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PieLabelLinkStyle;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.general.DefaultPieDataset;
@@ -37,8 +39,11 @@ public class DisplayStats extends javax.swing.JDialog {
     public DisplayStats(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        
         pie = makePie(getSelectedPeriphery());
+        
+        setLocationByPlatform(true);
+        
     }
 
     /**
@@ -50,6 +55,8 @@ public class DisplayStats extends javax.swing.JDialog {
         StandardPieSectionLabelGenerator labelMaker = new StandardPieSectionLabelGenerator("{0}: {1} ({2})", new DecimalFormat("#0"), new DecimalFormat("0.00%"));
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setLabelGenerator(labelMaker);
+        plot.setLabelFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        plot.setLabelLinkStyle(PieLabelLinkStyle.QUAD_CURVE);
         JPanel chartPanel = new ChartPanel(chart);
         chartPanel.setSize(jPanel2.getSize());
         jPanel2.add(chartPanel);
@@ -78,13 +85,13 @@ public class DisplayStats extends javax.swing.JDialog {
             tQuery2.setParameter("fldIsBlank", true);
 
             List<Vote> votes = tQuery2.getResultList();
-            dataset.setValue("Λευκά", votes.size());
+            dataset.setValue("ΛΕΥΚΑ", votes.size());
 
             tQuery2 = DBManager.em().createNamedQuery("Vote.findByFldIsInvalid", Vote.class);
             tQuery2.setParameter("fldIsInvalid", true);
 
             votes = tQuery2.getResultList();
-            dataset.setValue("Άκυρα", votes.size());
+            dataset.setValue("ΑΚΥΡΑ", votes.size());
 
         } else {
 
@@ -101,12 +108,12 @@ public class DisplayStats extends javax.swing.JDialog {
             TypedQuery<Vote> tQuery2 = DBManager.em().createNamedQuery("Vote.findByPerBlank", Vote.class);
             tQuery2.setParameter("fkElectoralPeripheryId", UtilFuncs.getPeripheryByName(currentPer));
             List<Vote> votes = tQuery2.getResultList();
-            dataset.setValue("Λευκά", votes.size());
+            dataset.setValue("ΛΕΥΚΑ", votes.size());
 
             TypedQuery<Vote> tQuery3 = DBManager.em().createNamedQuery("Vote.findByPerInvalid", Vote.class);
             tQuery3.setParameter("fkElectoralPeripheryId", UtilFuncs.getPeripheryByName(currentPer));
             votes = tQuery3.getResultList();
-            dataset.setValue("Άκυρα", votes.size());
+            dataset.setValue("ΑΚΥΡΑ", votes.size());
         }
 
         updatePie(currentPer);
@@ -233,7 +240,7 @@ public class DisplayStats extends javax.swing.JDialog {
     private DefaultPieDataset dataset = new DefaultPieDataset();
     private TypedQuery<PoliticalParty> tQuery;
     private List<PoliticalParty> allParties;
-    private JFreeChart pie;
+    private final JFreeChart pie;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox_Periphery;
