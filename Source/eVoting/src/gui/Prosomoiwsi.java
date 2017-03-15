@@ -6,11 +6,13 @@
 package gui;
 
 import db.DBManager;
+import dbentity.Candidate;
 import dbentity.ElectoralPeriphery;
 import gui.utilities.UtilFuncs;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import threadedmethods.CastVote;
@@ -181,89 +183,97 @@ public class Prosomoiwsi extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_ExitActionPerformed
 
     private void jButton_BeginEmuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BeginEmuActionPerformed
+        DBManager.create();
+        Query q = DBManager.em().createNativeQuery("SELECT COUNT(*) FROM TBL_CANDIDATE");
+        int rs = (int) q.getSingleResult();
 
-        ProgressWindow pw = new ProgressWindow(UtilFuncs.getDialogOwnerFrame(), true);
+        if (rs != 0) {
+            ProgressWindow pw = new ProgressWindow(UtilFuncs.getDialogOwnerFrame(), true);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                float voteChance = 0.0f;
-                float blankChance = 0.0f;
-                float invalidChance = 0.0f;
-                String inputError = "Οι πιθανότητες πρέπει να είναι θετικοί αριθμοί από το 0.0 έως το 100";
-                String inputErrorTitle = "Σφάλμα εισόδου";
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    float voteChance = 0.0f;
+                    float blankChance = 0.0f;
+                    float invalidChance = 0.0f;
+                    String inputError = "Οι πιθανότητες πρέπει να είναι θετικοί αριθμοί από το 0.0 έως το 100";
+                    String inputErrorTitle = "Σφάλμα εισόδου";
 
-                try {
-                    voteChance = Float.parseFloat(jTextField_VoteChance.getText()) / 100f;
-                    blankChance = Float.parseFloat(jTextField_BlankChance.getText()) / 100f;
-                    invalidChance = Float.parseFloat(jTextField_InvalidChance.getText()) / 100f;
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                boolean voteChanceInRange = (voteChance >= 0f && voteChance <= 1f);
-                boolean blankChanceInRange = (blankChance >= 0f && blankChance <= 1f);
-                boolean invalidChanceInRange = (invalidChance >= 0f && invalidChance <= 1f);
-                boolean blankInvalidSumInRange = blankChance + invalidChance <= 1f;
-
-                if (!(voteChanceInRange && blankChanceInRange && invalidChanceInRange && blankInvalidSumInRange)) {
-                    JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                try {
-                    DBManager.create();
                     try {
-                        DBManager.em().getTransaction().begin();
+                        voteChance = Float.parseFloat(jTextField_VoteChance.getText()) / 100f;
+                        blankChance = Float.parseFloat(jTextField_BlankChance.getText()) / 100f;
+                        invalidChance = Float.parseFloat(jTextField_InvalidChance.getText()) / 100f;
                     } catch (Exception e) {
-                        
+                        JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
-                    DBManager.em().createQuery("DELETE FROM Vote").executeUpdate();
-                    DBManager.em().getTransaction().commit();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Error connecting to the database."
-                            + "\nMake sure the Java DB Server is running and try again.\n\n", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
+
+                    boolean voteChanceInRange = (voteChance >= 0f && voteChance <= 1f);
+                    boolean blankChanceInRange = (blankChance >= 0f && blankChance <= 1f);
+                    boolean invalidChanceInRange = (invalidChance >= 0f && invalidChance <= 1f);
+                    boolean blankInvalidSumInRange = blankChance + invalidChance <= 1f;
+
+                    if (!(voteChanceInRange && blankChanceInRange && invalidChanceInRange && blankInvalidSumInRange)) {
+                        JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    try {
+                        DBManager.create();
+                        try {
+                            DBManager.em().getTransaction().begin();
+                        } catch (Exception e) {
+
+                        }
+                        DBManager.em().createQuery("DELETE FROM Vote").executeUpdate();
+                        DBManager.em().getTransaction().commit();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Error connecting to the database."
+                                + "\nMake sure the Java DB Server is running and try again.\n\n", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            pw.setVisible(true);
+                        }
+                    });
+
+                    TypedQuery<ElectoralPeriphery> tQuery = DBManager.em().createNamedQuery("ElectoralPeriphery.findAll", ElectoralPeriphery.class);
+                    List<ElectoralPeriphery> results = tQuery.getResultList();
+
+                    int nThreads = 0;
+                    for (ElectoralPeriphery ep : results) {
+                        if (!ep.getCandidateCollection().isEmpty()) {
+                            nThreads++;
+                        }
+                    }
+                    ExecutorService executor = Executors.newFixedThreadPool(nThreads);
+
+                    for (ElectoralPeriphery ep : results) {
+                        if (!ep.getCandidateCollection().isEmpty()) {
+                            Runnable worker = new CastVote(ep, voteChance, blankChance, invalidChance);
+
+                            executor.execute(worker);
+                        }
+                    }
+
+                    executor.shutdown();
+
+                    //Wait until all threads are finished
+                    while (!executor.isTerminated()) {
+
+                    }
+                    pw.dispose();
+                    JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Η προσομοίωση ολοκληρώθηκε επιτυχώς", "Ολοκληρώθηκε", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        pw.setVisible(true);
-                    }
-                });
-
-                TypedQuery<ElectoralPeriphery> tQuery = DBManager.em().createNamedQuery("ElectoralPeriphery.findAll", ElectoralPeriphery.class);
-                List<ElectoralPeriphery> results = tQuery.getResultList();
-
-                int nThreads = 0;
-                for (ElectoralPeriphery ep : results) {
-                    if (!ep.getCandidateCollection().isEmpty()) {
-                        nThreads++;
-                    }
-                }
-                ExecutorService executor = Executors.newFixedThreadPool(nThreads);
-
-                for (ElectoralPeriphery ep : results) {
-                    if (!ep.getCandidateCollection().isEmpty()) {
-                        Runnable worker = new CastVote(ep, voteChance, blankChance, invalidChance);
-
-                        executor.execute(worker);
-                    }
-                }
-
-                executor.shutdown();
-
-                //Wait until all threads are finished
-                while (!executor.isTerminated()) {
-
-                }
-                pw.dispose();
-                JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Η προσομοίωση ολοκληρώθηκε επιτυχώς", "Ολοκληρώθηκε", JOptionPane.INFORMATION_MESSAGE);
-            }
-
-        }).start();
-
+            }).start();
+        } else {
+            String oPaneMsg = "Δεν υπάρχουν καταχωρημένοι υποψήφιοι.\n Η προσομοίωση δεν θα εκτελεστεί.";
+            String oPaneTitle = "Σφάλμα εισόδου";
+            JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), oPaneMsg, oPaneTitle, JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_jButton_BeginEmuActionPerformed
 
