@@ -5,16 +5,27 @@
  */
 package gui;
 
+import IO.ElectionResults;
+import IO.XMLElectionResults;
 import db.DBManager;
 import dbentity.Candidate;
 import dbentity.ElectoralPeriphery;
+import dbentity.PoliticalParty;
 import gui.utilities.UtilFuncs;
+import java.io.File;
+import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.commons.lang3.StringUtils;
 import threadedmethods.CastVote;
 
 /**
@@ -159,6 +170,11 @@ public class Prosomoiwsi extends javax.swing.JDialog {
         jPanel3.add(filler7);
 
         jButton_ExportXML.setText("Εξαγωγή Αποτελεσμάτων σε XML");
+        jButton_ExportXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ExportXMLActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton_ExportXML);
         jPanel3.add(filler8);
         jPanel3.add(filler10);
@@ -283,9 +299,80 @@ public class Prosomoiwsi extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Error connecting to the database."
                     + "\nMake sure the Java DB Server is running and try again.\n\n", "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton_DisplayStatsActionPerformed
+
+    private void jButton_ExportXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExportXMLActionPerformed
+        DBManager.create();
+        TypedQuery<ElectoralPeriphery> tQuery = DBManager.em().createNamedQuery("ElectoralPeriphery.findAll", ElectoralPeriphery.class);
+
+        List<ElectoralPeriphery> perWithVotes = new ArrayList<>();
+
+        for (ElectoralPeriphery ep : tQuery.getResultList()) {
+            if (ep.getVoteCollection().size() > 0) {
+                perWithVotes.add(ep);
+            }
+        }
+
+        ElectionResults district = new XMLElectionResults();
+
+        for (ElectoralPeriphery ep : perWithVotes) {
+
+            TypedQuery<PoliticalParty> tQ2 = DBManager.em().createNamedQuery("PoliticalParty.findAll", PoliticalParty.class);
+            List<PoliticalParty> pParty = tQ2.getResultList();
+
+            ElectionResults resultsOfParties = new XMLElectionResults();
+
+            for (PoliticalParty pp : pParty) {
+
+                ElectionResults candidatesOfParty = new XMLElectionResults();
+                TypedQuery<Candidate> tQ3 = DBManager.em().createNamedQuery("Candidate.findByElectPerAndPolParty", Candidate.class);
+                tQ3.setParameter("fkElectoralPeripheryId", ep);
+                tQ3.setParameter("fkPoliticalPartyId", pp);
+                List<Candidate> candies = tQ3.getResultList();
+
+                for (Candidate c : candies) {
+                    DecimalFormat percentage = new DecimalFormat("0.00%");
+                    String peripheryPercentage = percentage.format((float) c.getVoteCollection().size() / ep.getVoteCollection().size());
+                    String partyPercentage = percentage.format((float) c.getVoteCollection().size() / pp.getVoteCollection().size());
+                    candidatesOfParty.put(c.getFldSurname(), c.getVoteCollection().size() + ", " + partyPercentage + ", " + peripheryPercentage);
+                }
+                resultsOfParties.put(pp.getFldTitle(), candidatesOfParty);
+            }
+            district.put(StringUtils.deleteWhitespace(ep.getFldName()), resultsOfParties);
+        }
+
+        String xml = ((XMLElectionResults) district).toXML();
+
+        JFileChooser fileChooser = new JFileChooser();
+
+        FileFilter xmlFilter = new FileNameExtensionFilter("eXtensible Markup Language Files (.xml)", ".xml");
+
+        fileChooser.setFileFilter(xmlFilter);
+
+        int rVal = fileChooser.showSaveDialog(UtilFuncs.getDialogOwnerFrame());
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+            String path = fileChooser.getSelectedFile().getPath();
+            File f;
+            if (path.endsWith(".xml")) {
+                f = new File(path);
+            } else {
+                f = new File(path + ".xml");
+            }
+            try {
+                f.createNewFile();
+                try {
+                    PrintWriter pr = new PrintWriter(f);
+                    pr.write(xml);
+                    pr.close();
+                } catch (Exception e) {
+
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }//GEN-LAST:event_jButton_ExportXMLActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
