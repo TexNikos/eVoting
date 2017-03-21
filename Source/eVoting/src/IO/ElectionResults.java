@@ -15,6 +15,10 @@ import java.util.Map;
 public class ElectionResults extends HashMap {
 
     private String name;
+    
+    public ElectionResults() {
+        super();
+    }
 
     public ElectionResults(String name) {
         super();

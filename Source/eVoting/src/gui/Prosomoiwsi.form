@@ -242,6 +242,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x395;&#x3be;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae; &#x391;&#x3c0;&#x3bf;&#x3c4;&#x3b5;&#x3bb;&#x3b5;&#x3c3;&#x3bc;&#x3ac;&#x3c4;&#x3c9;&#x3bd; &#x3c3;&#x3b5; XML"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ExportXMLActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.Box$Filler" name="filler8">
           <Properties>
