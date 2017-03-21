@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 public class DiaxeirisiTableModel extends AbstractTableModel {
 
     public static List<Candidate> result;
+    private static final List<Long> candiHash = new ArrayList<>();
     private static TypedQuery<Candidate> query;
     private static final String TEXT_ONLY_REGEX = "!|@|#|\\$|%|\\^|&|\\*|\\(|\\)|`|~|-|_|=|\\+|\\[|\\]|\\{|\\}|;|:|'|\\\"|,|\\.|<|>|/|\\?|\\\\|\\||[0-9]";
     private static final Pattern TEXT_ONLY_PATTERN = Pattern.compile(TEXT_ONLY_REGEX);
@@ -42,6 +43,12 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
         DBManager.create();
         query = DBManager.em().createNamedQuery("Candidate.findAll", Candidate.class);
         result = query.getResultList();
+        
+        for (Candidate c : result) {
+            long fullNameHash = c.getFldName().hashCode() + c.getFldSurname().hashCode();
+            candiHash.add(fullNameHash);
+        }
+        
     }
 
     public void updateTable(String periphery, String pParty) {
@@ -213,19 +220,26 @@ public class DiaxeirisiTableModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public static boolean saveCandi(int index) {
+    public static int saveCandi(int index) {
         if (!result.isEmpty()) {
             Candidate c = result.get(index);
             String surname = c.getFldSurname();
             String name = c.getFldName();
+            long currentHash = surname.hashCode() + name.hashCode();
+            
+            if (candiHash.contains(currentHash)) {
+                return -2;
+            }
+            
             if (surname.isEmpty() || name.isEmpty()) {
-                return false;
+                return -1;
             } else {
                 DBManager.em().persist(c);
-                return true;
+                candiHash.add(currentHash);
+                return 0;
             }
         }
-        return false;
+        return -1;
     }
 
 }
