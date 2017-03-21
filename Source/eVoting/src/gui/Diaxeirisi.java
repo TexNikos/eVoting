@@ -273,6 +273,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
         List<Integer> errorIndex = new ArrayList<>();
         List<Integer> savedEdits = new ArrayList<>();
         List<Integer> nameExistsInd = new ArrayList<>();
+        
         if (!DiaxeirisiTableModel.unsavedEdits.isEmpty()) {
             try {
                 DBManager.em().getTransaction().begin();

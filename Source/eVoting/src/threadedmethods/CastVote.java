@@ -45,7 +45,7 @@ public class CastVote implements Runnable {
 
         em.getTransaction().begin();
 
-        for (int i = 0; i < (ep.getFldRegisteredCitizensCount()); i++) {
+        for (int i = 0; i < (ep.getFldRegisteredCitizensCount() / 1000); i++) {
             j++;
             if (rand.nextFloat() < voteChance) {
                 
