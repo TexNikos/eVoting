@@ -20,9 +20,10 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PieLabelLinkStyle;
-import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.general.DefaultPieDataset;
+import tablemodels.DisplayStatsTableModel;
 
 /**
  *
@@ -39,28 +40,28 @@ public class DisplayStats extends javax.swing.JDialog {
     public DisplayStats(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         pie = makePie(getSelectedPeriphery());
-        
+
         setLocationByPlatform(true);
-        
+
     }
 
     /**
      * Pie chart construction function
      */
     private JFreeChart makePie(String periphery) {
-        JFreeChart chart = ChartFactory.createPieChart3D(periphery, dataset);
+        JFreeChart chart = ChartFactory.createPieChart(periphery, dataset);
         chart.setTitle(periphery);
         StandardPieSectionLabelGenerator labelMaker = new StandardPieSectionLabelGenerator("{0}: {1} ({2})", new DecimalFormat("#0"), new DecimalFormat("0.00%"));
-        PiePlot3D plot = (PiePlot3D) chart.getPlot();
+        PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelGenerator(labelMaker);
-        plot.setLabelFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        plot.setLabelFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
         plot.setLabelLinkStyle(PieLabelLinkStyle.QUAD_CURVE);
         JPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setSize(jPanel2.getSize());
-        jPanel2.add(chartPanel);
-        jPanel2.getParent().validate();
+        chartPanel.setSize(jPanel4.getSize());
+        jPanel4.add(chartPanel);
+        jPanel4.getParent().validate();
 
         return chart;
     }
@@ -70,6 +71,10 @@ public class DisplayStats extends javax.swing.JDialog {
     }
 
     private void setPieData(String currentPer) {
+
+        int voteCount = 0;
+        dstm.tableContents.clear();
+        
         if (currentPer.equals("ΟΛΕΣ ΟΙ ΠΕΡΙΦΕΡΕΙΕΣ")) {
 
             for (PoliticalParty pp : allParties) {
@@ -79,6 +84,9 @@ public class DisplayStats extends javax.swing.JDialog {
                 List<Vote> votes = tQuery2.getResultList();
 
                 dataset.setValue(pp.getFldTitle(), votes.size());
+                Object[] tableRow = {pp.getFldTitle(), votes.size(), ""};
+                dstm.tableContents.add(tableRow);
+                voteCount += votes.size();
             }
 
             TypedQuery<Vote> tQuery2 = DBManager.em().createNamedQuery("Vote.findByFldIsBlank", Vote.class);
@@ -86,12 +94,27 @@ public class DisplayStats extends javax.swing.JDialog {
 
             List<Vote> votes = tQuery2.getResultList();
             dataset.setValue("ΛΕΥΚΑ", votes.size());
+            Object[] tableRow = {"ΛΕΥΚΑ", votes.size(), ""};
+            dstm.tableContents.add(tableRow.clone());
+            voteCount += votes.size();
 
             tQuery2 = DBManager.em().createNamedQuery("Vote.findByFldIsInvalid", Vote.class);
             tQuery2.setParameter("fldIsInvalid", true);
 
             votes = tQuery2.getResultList();
             dataset.setValue("ΑΚΥΡΑ", votes.size());
+
+            tableRow[0] = "ΑΚΥΡΑ";
+            tableRow[1] = votes.size();
+            tableRow[2] = "";
+            dstm.tableContents.add(tableRow);
+            voteCount += votes.size();
+
+            for (Object[] oa : dstm.tableContents) {
+                oa[2] = percentage.format((int) oa[1] / (float) voteCount);
+            }
+
+            dstm.fireTableDataChanged();
 
         } else {
 
@@ -103,17 +126,34 @@ public class DisplayStats extends javax.swing.JDialog {
                 List<Vote> votes = tQuery2.getResultList();
 
                 dataset.setValue(pp.getFldTitle(), votes.size());
+                Object[] tableRow = {pp.getFldTitle(), votes.size(), ""};
+                dstm.tableContents.add(tableRow);
+                voteCount += votes.size();
             }
 
             TypedQuery<Vote> tQuery2 = DBManager.em().createNamedQuery("Vote.findByPerBlank", Vote.class);
             tQuery2.setParameter("fkElectoralPeripheryId", UtilFuncs.getPeripheryByName(currentPer));
             List<Vote> votes = tQuery2.getResultList();
             dataset.setValue("ΛΕΥΚΑ", votes.size());
+            Object[] tableRow = {"ΛΕΥΚΑ", votes.size(), ""};
+            dstm.tableContents.add(tableRow.clone());
+            voteCount += votes.size();
 
             TypedQuery<Vote> tQuery3 = DBManager.em().createNamedQuery("Vote.findByPerInvalid", Vote.class);
             tQuery3.setParameter("fkElectoralPeripheryId", UtilFuncs.getPeripheryByName(currentPer));
             votes = tQuery3.getResultList();
             dataset.setValue("ΑΚΥΡΑ", votes.size());
+            tableRow[0] = "ΑΚΥΡΑ";
+            tableRow[1] = votes.size();
+            tableRow[2] = "";
+            dstm.tableContents.add(tableRow);
+            voteCount += votes.size();
+
+            for (Object[] oa : dstm.tableContents) {
+                oa[2] = percentage.format((int) oa[1] / (float) voteCount);
+            }
+
+            dstm.fireTableDataChanged();
         }
 
         updatePie(currentPer);
@@ -149,6 +189,9 @@ public class DisplayStats extends javax.swing.JDialog {
         jComboBox_Periphery = new javax.swing.JComboBox<>();
         jLabel_Periphery = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Εμφάνιση Στατιστικών");
@@ -196,16 +239,26 @@ public class DisplayStats extends javax.swing.JDialog {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel2.setLayout(new java.awt.GridLayout(1, 2));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 433, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 427, Short.MAX_VALUE)
         );
+
+        jPanel2.add(jPanel4);
+
+        jTable1.setModel(dstm);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane1);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -237,15 +290,20 @@ public class DisplayStats extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private DefaultPieDataset dataset = new DefaultPieDataset();
+    public static DefaultPieDataset dataset = new DefaultPieDataset();
     private TypedQuery<PoliticalParty> tQuery;
     private List<PoliticalParty> allParties;
     private final JFreeChart pie;
+    private final DisplayStatsTableModel dstm = new DisplayStatsTableModel();
+    DecimalFormat percentage = new DecimalFormat("0.00%");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox_Periphery;
     private javax.swing.JLabel jLabel_Periphery;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
