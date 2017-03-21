@@ -299,6 +299,7 @@ public class Prosomoiwsi extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), "Error connecting to the database."
                     + "\nMake sure the Java DB Server is running and try again.\n\n", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton_DisplayStatsActionPerformed
 

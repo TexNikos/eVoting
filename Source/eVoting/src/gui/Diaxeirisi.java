@@ -6,6 +6,7 @@
 package gui;
 
 import db.DBManager;
+import dbentity.Candidate;
 import dbentity.ElectoralPeriphery;
 import dbentity.PoliticalParty;
 import gui.utilities.UtilFuncs;
@@ -271,6 +272,7 @@ public class Diaxeirisi extends javax.swing.JDialog {
     private void jButton_SaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SaveChangesActionPerformed
         List<Integer> errorIndex = new ArrayList<>();
         List<Integer> savedEdits = new ArrayList<>();
+        List<Integer> nameExistsInd = new ArrayList<>();
         if (!DiaxeirisiTableModel.unsavedEdits.isEmpty()) {
             try {
                 DBManager.em().getTransaction().begin();
@@ -278,10 +280,17 @@ public class Diaxeirisi extends javax.swing.JDialog {
 
             }
             for (int i : DiaxeirisiTableModel.unsavedEdits) {
-                if (!DiaxeirisiTableModel.saveCandi(i)) {
-                    errorIndex.add(i);
-                } else {
-                    savedEdits.add(i);
+                int rVal = DiaxeirisiTableModel.saveCandi(i);
+                switch (rVal) {
+                    case -1:
+                        errorIndex.add(i);
+                        break;
+                    case -2:
+                        nameExistsInd.add(i);
+                        break;
+                    default:
+                        savedEdits.add(i);
+                        break;
                 }
             }
 
@@ -302,6 +311,21 @@ public class Diaxeirisi extends javax.swing.JDialog {
                 String inputErrorTitle = "Σφάλμα εισόδου";
                 JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
                 errorIndex.clear();
+            }
+            
+            if (!nameExistsInd.isEmpty()) {
+                String inputError = "Τα ονοματεπώνυμα: ";
+                String inputErrorTitle = "Σφάλμα εισόδου";
+                
+                for (int i : nameExistsInd) {
+                    Candidate c = DiaxeirisiTableModel.result.get(i);
+                    inputError += "\n" + c.getFldSurname();
+                    inputError += " " + c.getFldName();
+                }
+                
+                inputError += "\nείναι ήδη καταχωρημένα.";
+                
+                JOptionPane.showMessageDialog(UtilFuncs.getDialogOwnerFrame(), inputError, inputErrorTitle, JOptionPane.ERROR_MESSAGE);
             }
         } else {
             String error = "Δεν υπάρχουν μη αποθηκευμένες αλλαγές.";
