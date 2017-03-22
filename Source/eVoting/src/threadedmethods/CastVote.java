@@ -44,7 +44,11 @@ public class CastVote implements Runnable {
         int j = 0;
 
         em.getTransaction().begin();
-
+        
+        /**
+         * Το j μετράει τις ψήφους που έχουν κατασκευαστεί σαν αντικείμενα
+         * για να καταχωρηθούν σε batch των 10000 τη φορά
+         */
         for (int i = 0; i < (ep.getFldRegisteredCitizensCount() / 1000); i++) {
             j++;
             if (rand.nextFloat() < voteChance) {
@@ -57,8 +61,9 @@ public class CastVote implements Runnable {
                     v.setFldIsInvalid(false);
                     v.setFkElectoralPeripheryId(ep);
                     em.persist(v);
-                    if (j == 100000) {
+                    if (j == 10000) {
                         em.getTransaction().commit();
+                        em.clear();
                         em.getTransaction().begin();
                         j = 0;
                     }
@@ -68,8 +73,9 @@ public class CastVote implements Runnable {
                     v.setFldIsBlank(false);
                     v.setFkElectoralPeripheryId(ep);
                     em.persist(v);
-                    if (j == 100000) {
+                    if (j == 10000) {
                         em.getTransaction().commit();
+                        em.clear();
                         em.getTransaction().begin();
                         j = 0;
                     }
@@ -82,8 +88,9 @@ public class CastVote implements Runnable {
                     v.setFkElectoralPeripheryId(ep);
                     v.setFkPoliticalPartyId(votedCandi.getFkPoliticalPartyId());
                     em.persist(v);
-                    if (j == 100000) {
+                    if (j == 10000) {
                         em.getTransaction().commit();
+                        em.clear();
                         em.getTransaction().begin();
                         j = 0;
                     }
@@ -94,6 +101,7 @@ public class CastVote implements Runnable {
         }
 
         em.getTransaction().commit();
+        em.clear();
         em.close();
         emf.close();
 
